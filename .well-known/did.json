@@ -1,0 +1,14 @@
+{
+  "@context" : [ "https://www.w3.org/ns/did/v1", "https://w3id.org/security/suites/ed25519-2020/v1" ],
+  "id" : "did:web:etzhayyim.github.io:com-etzhayyim-sukashi",
+  "alsoKnownAs" : [ "at://sukashi.etzhayyim.com", "https://github.com/etzhayyim/com-etzhayyim-sukashi", "rad:bafkreih4xl6kt6p6yt2oirv4whknibyic6xcjjduoh634itaydrfz6c23u" ],
+  "service" : [ {
+    "id" : "did:web:etzhayyim.github.io:com-etzhayyim-sukashi#atproto_pds",
+    "type" : "AtprotoPersonalDataServer",
+    "serviceEndpoint" : "https://pds.etzhayyim.com"
+  }, {
+    "id" : "did:web:etzhayyim.github.io:com-etzhayyim-sukashi#aozora",
+    "type" : "AozoraAppView",
+    "serviceEndpoint" : "https://aozora.app"
+  } ]
+}

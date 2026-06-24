@@ -1,0 +1,13 @@
+;; kotoba.app.edn — actor:sukashi KOTOBA Mesh application manifest (observatory on-kse, ADR-2606230001 §4).
+;; Deploy: kotoba app deploy kotoba.app.edn  (compiles methods/mesh.clj → CID → control datoms)
+{:kotoba.app/name    "sukashi"
+ :kotoba.app/version "0.1.0"
+ :kotoba.app/components
+ [{:name     "sukashi"
+   :src      "methods/mesh.clj"                  ; Clojure default → run + on-kse
+   :scale    1
+   :triggers [{:type :kse :topic "etzhayyim/actor/sukashi"}]
+   :requires #{:cap/kqe}}]
+
+ :kotoba.app/placement {:spread  :zone
+                        :require {:tier "edge"}}}

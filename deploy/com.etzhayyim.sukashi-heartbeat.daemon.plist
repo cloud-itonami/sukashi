@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LaunchDAEMON template for the sukashi observatory heartbeat on a Murakumo Mac mini
+  (ADR-2606161645 path A). A *Daemon* (system domain, /Library/LaunchDaemons), NOT a per-user
+  LaunchAgent: the fleet Macs sit at the login window with NO Aqua GUI session
+  (console-user=root, verified 2026-06-16), so a LaunchAgent cannot run there and crontab is
+  TCC-blocked over SSH. A LaunchDaemon runs headlessly — the GUI-independent fix.
+
+  Per-node substitution (the operator does this at install, with sudo):
+    @@USER@@  — the tribe user (e.g. issachar)
+    @@HOME@@  — that user's home (e.g. /Users/issachar)
+  The cell is pure-stdlib python3, so no uv/venv is required (unlike the canonical kotodama
+  cell-runner). The heartbeat does NO live crawl (G7 keeps acquisition gated); it re-analyzes the
+  already-acquired graph and appends one content-addressed tx to the actor-local kotoba commit-DAG.
+
+  Install (operator, sudo — runs headlessly across reboots):
+    sudo cp com.etzhayyim.sukashi-heartbeat.daemon.plist /Library/LaunchDaemons/com.etzhayyim.sukashi-heartbeat.plist
+    sudo launchctl bootstrap system /Library/LaunchDaemons/com.etzhayyim.sukashi-heartbeat.plist
+    sudo launchctl print system/com.etzhayyim.sukashi-heartbeat | head
+  Remove:
+    sudo launchctl bootout system/com.etzhayyim.sukashi-heartbeat
+    sudo rm /Library/LaunchDaemons/com.etzhayyim.sukashi-heartbeat.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.sukashi-heartbeat</string>
+  <key>UserName</key>
+  <string>@@USER@@</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>@@HOME@@/sukashi-run/cell.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>@@HOME@@/sukashi-run</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Minute</key>
+    <integer>42</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>@@HOME@@/.etzhayyim/log/sukashi-heartbeat.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>@@HOME@@/.etzhayyim/log/sukashi-heartbeat.err.log</string>
+</dict>
+</plist>

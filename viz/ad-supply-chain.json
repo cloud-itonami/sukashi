@@ -1,0 +1,1259 @@
+{
+  "nodes" : [ {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "The Trade Desk",
+    "id" : "org.corp.us.thetradedesk",
+    "signals" : [ ],
+    "domain" : "thetradedesk.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Google Display & Video 360",
+    "id" : "adtech.dsp.google-dv360",
+    "signals" : [ ],
+    "domain" : "google.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Amazon DSP",
+    "id" : "adtech.dsp.amazon-dsp",
+    "signals" : [ ],
+    "domain" : "amazon-adsystem.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "FR",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Criteo",
+    "id" : "adtech.dsp.criteo",
+    "signals" : [ ],
+    "domain" : "criteo.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "MediaMath (archived)",
+    "id" : "adtech.dsp.mediamath",
+    "signals" : [ ],
+    "domain" : "mediamath.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-exchange",
+    "label" : "Google AdX (Authorized Buyers)",
+    "id" : "adtech.ad-exchange.google-adx",
+    "signals" : [ ],
+    "domain" : "google.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Magnite",
+    "id" : "adtech.ssp.magnite",
+    "signals" : [ ],
+    "domain" : "magnite.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "PubMatic",
+    "id" : "adtech.ssp.pubmatic",
+    "signals" : [ ],
+    "domain" : "pubmatic.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "CA",
+    "fraud" : false,
+    "group" : "ad-exchange",
+    "label" : "Index Exchange",
+    "id" : "adtech.ad-exchange.index-exchange",
+    "signals" : [ ],
+    "domain" : "indexexchange.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-exchange",
+    "label" : "OpenX",
+    "id" : "adtech.ad-exchange.openx",
+    "signals" : [ ],
+    "domain" : "openx.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Sharethrough",
+    "id" : "adtech.ssp.sharethrough",
+    "signals" : [ ],
+    "domain" : "sharethrough.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "TripleLift",
+    "id" : "adtech.ssp.triplelift",
+    "signals" : [ ],
+    "domain" : "triplelift.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "DE",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Smaato",
+    "id" : "adtech.ssp.smaato",
+    "signals" : [ ],
+    "domain" : "smaato.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "IL",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Taboola",
+    "id" : "adtech.ad-network.taboola",
+    "signals" : [ ],
+    "domain" : "taboola.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "IL",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Outbrain",
+    "id" : "adtech.ad-network.outbrain",
+    "signals" : [ ],
+    "domain" : "outbrain.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-exchange",
+    "label" : "Microsoft Xandr (AppNexus)",
+    "id" : "adtech.ad-exchange.xandr",
+    "signals" : [ ],
+    "domain" : "appnexus.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "DE",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Verve Group",
+    "id" : "adtech.ad-network.verve",
+    "signals" : [ ],
+    "domain" : "verve.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "IN",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "InMobi",
+    "id" : "adtech.ad-network.inmobi",
+    "signals" : [ ],
+    "domain" : "inmobi.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "DoubleVerify",
+    "id" : "adtech.verification.doubleverify",
+    "signals" : [ ],
+    "domain" : "doubleverify.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "Integral Ad Science (IAS)",
+    "id" : "adtech.verification.ias",
+    "signals" : [ ],
+    "domain" : "integralads.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "HUMAN Security (White Ops)",
+    "id" : "adtech.verification.human",
+    "signals" : [ ],
+    "domain" : "humansecurity.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "authoritative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "IAB Tech Lab (ads.txt / sellers.json steward)",
+    "id" : "adtech.standards.iab-tech-lab",
+    "signals" : [ ],
+    "domain" : "iabtechlab.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "Oracle Moat (archived)",
+    "id" : "adtech.verification.moat",
+    "signals" : [ ],
+    "domain" : "moat.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "Comscore",
+    "id" : "adtech.verification.comscore",
+    "signals" : [ ],
+    "domain" : "comscore.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "Nielsen",
+    "id" : "adtech.verification.nielsen",
+    "signals" : [ ],
+    "domain" : "nielsen.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "verification",
+    "label" : "Pixalate",
+    "id" : "adtech.verification.pixalate",
+    "signals" : [ ],
+    "domain" : "pixalate.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Adobe Advertising",
+    "id" : "adtech.dsp.adobe-advertising",
+    "signals" : [ ],
+    "domain" : "adobe.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Yahoo DSP",
+    "id" : "adtech.dsp.yahoo-dsp",
+    "signals" : [ ],
+    "domain" : "yahoo.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "CA",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "StackAdapt",
+    "id" : "adtech.dsp.stackadapt",
+    "signals" : [ ],
+    "domain" : "stackadapt.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Viant",
+    "id" : "adtech.dsp.viant",
+    "signals" : [ ],
+    "domain" : "viantinc.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Zeta Global",
+    "id" : "adtech.dsp.zeta-global",
+    "signals" : [ ],
+    "domain" : "zetaglobal.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Quantcast",
+    "id" : "adtech.dsp.quantcast",
+    "signals" : [ ],
+    "domain" : "quantcast.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "NextRoll (AdRoll)",
+    "id" : "adtech.dsp.nextroll",
+    "signals" : [ ],
+    "domain" : "nextroll.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Basis Technologies (Centro)",
+    "id" : "adtech.dsp.basis",
+    "signals" : [ ],
+    "domain" : "basis.net",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "dsp",
+    "label" : "Simpli.fi",
+    "id" : "adtech.dsp.simpli-fi",
+    "signals" : [ ],
+    "domain" : "simpli.fi",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Sovrn",
+    "id" : "adtech.ssp.sovrn",
+    "signals" : [ ],
+    "domain" : "sovrn.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "GumGum",
+    "id" : "adtech.ssp.gumgum",
+    "signals" : [ ],
+    "domain" : "gumgum.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Yieldmo",
+    "id" : "adtech.ssp.yieldmo",
+    "signals" : [ ],
+    "domain" : "yieldmo.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "FR",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Equativ (Smart AdServer)",
+    "id" : "adtech.ssp.equativ",
+    "signals" : [ ],
+    "domain" : "equativ.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "IL",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Nexxen (Tremor/Unruly)",
+    "id" : "adtech.ad-network.nexxen",
+    "signals" : [ ],
+    "domain" : "nexxen.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "FR",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Teads",
+    "id" : "adtech.ssp.teads",
+    "signals" : [ ],
+    "domain" : "teads.tv",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Kargo",
+    "id" : "adtech.ssp.kargo",
+    "signals" : [ ],
+    "domain" : "kargo.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Connatix",
+    "id" : "adtech.ssp.connatix",
+    "signals" : [ ],
+    "domain" : "connatix.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Unity Ads (ironSource)",
+    "id" : "adtech.ad-network.unity-ads",
+    "signals" : [ ],
+    "domain" : "unity.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Liftoff (Vungle)",
+    "id" : "adtech.ad-network.liftoff",
+    "signals" : [ ],
+    "domain" : "liftoff.io",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Digital Turbine (AdColony/Fyber)",
+    "id" : "adtech.ad-network.digital-turbine",
+    "signals" : [ ],
+    "domain" : "digitalturbine.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "AppLovin",
+    "id" : "adtech.ad-network.applovin",
+    "signals" : [ ],
+    "domain" : "applovin.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-exchange",
+    "label" : "FreeWheel (Comcast)",
+    "id" : "adtech.ad-exchange.freewheel",
+    "signals" : [ ],
+    "domain" : "freewheel.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Roku Advertising (OneView)",
+    "id" : "adtech.ssp.roku-oneview",
+    "signals" : [ ],
+    "domain" : "roku.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "KR",
+    "fraud" : false,
+    "group" : "ssp",
+    "label" : "Samsung Ads",
+    "id" : "adtech.ssp.samsung-ads",
+    "signals" : [ ],
+    "domain" : "samsung.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Walmart Connect",
+    "id" : "adtech.ad-network.walmart-connect",
+    "signals" : [ ],
+    "domain" : "walmart.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-network",
+    "label" : "Instacart Ads",
+    "id" : "adtech.ad-network.instacart-ads",
+    "signals" : [ ],
+    "domain" : "instacart.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-server",
+    "label" : "Google Ad Manager (GAM)",
+    "id" : "adtech.ad-server.google-ad-manager",
+    "signals" : [ ],
+    "domain" : "google.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "ad-server",
+    "label" : "Kevel",
+    "id" : "adtech.ad-server.kevel",
+    "signals" : [ ],
+    "domain" : "kevel.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "data-broker",
+    "label" : "LiveRamp",
+    "id" : "adtech.data-broker.liveramp",
+    "signals" : [ ],
+    "domain" : "liveramp.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "data-broker",
+    "label" : "Lotame",
+    "id" : "adtech.data-broker.lotame",
+    "signals" : [ ],
+    "domain" : "lotame.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "data-broker",
+    "label" : "Acxiom",
+    "id" : "adtech.data-broker.acxiom",
+    "signals" : [ ],
+    "domain" : "acxiom.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "cmp",
+    "label" : "Sourcepoint",
+    "id" : "adtech.cmp.sourcepoint",
+    "signals" : [ ],
+    "domain" : "sourcepoint.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "FR",
+    "fraud" : false,
+    "group" : "cmp",
+    "label" : "Didomi",
+    "id" : "adtech.cmp.didomi",
+    "signals" : [ ],
+    "domain" : "didomi.io",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : "US",
+    "fraud" : false,
+    "group" : "cmp",
+    "label" : "OneTrust",
+    "id" : "adtech.cmp.onetrust",
+    "signals" : [ ],
+    "domain" : "onetrust.com",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "representative",
+    "country" : null,
+    "fraud" : false,
+    "group" : "publisher",
+    "label" : "Example News (illustrative publisher)",
+    "id" : "adtech.publisher.example-news",
+    "signals" : [ ],
+    "domain" : "example-news.example",
+    "kind" : "adtech",
+    "category" : "media"
+  }, {
+    "sourcing" : "representative",
+    "country" : null,
+    "fraud" : false,
+    "group" : "publisher",
+    "label" : "Example Weather (illustrative publisher)",
+    "id" : "adtech.publisher.example-weather",
+    "signals" : [ ],
+    "domain" : "example-weather.example",
+    "kind" : "adtech",
+    "category" : "media"
+  }, {
+    "sourcing" : "representative",
+    "country" : null,
+    "fraud" : false,
+    "group" : "publisher",
+    "label" : "Example CTV App (illustrative app-ads.txt developer)",
+    "id" : "adtech.publisher.example-ctv-app",
+    "signals" : [ ],
+    "domain" : "example-ctv.example",
+    "kind" : "adtech",
+    "category" : "media"
+  }, {
+    "sourcing" : "representative",
+    "country" : null,
+    "fraud" : false,
+    "group" : "advertiser",
+    "label" : "Consumer Brand Co (illustrative advertiser)",
+    "id" : "org.corp.us.consumer-brand-co",
+    "signals" : [ ],
+    "domain" : "consumerbrand.example",
+    "kind" : "adtech",
+    "category" : "ecommerce"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "ssp",
+    "label" : "Fly-By-Night SSP (FICTIONAL — illustrative unauthorized reseller)",
+    "id" : "adtech.ssp.fly-by-night",
+    "signals" : [ {
+      "kind" : "shared-fraud-infra",
+      "confidence" : 0.79,
+      "routed_to" : "danjo"
+    } ],
+    "domain" : "flybynight-ssp.test",
+    "kind" : "adtech",
+    "category" : null
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "publisher",
+    "label" : "Spoofed News (FICTIONAL — illustrative domain-spoof publisher)",
+    "id" : "adtech.publisher.spoofed-news",
+    "signals" : [ ],
+    "domain" : "example-news.test",
+    "kind" : "adtech",
+    "category" : "media"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "FastCoin Profits (FICTIONAL — illustrative scam advertiser)",
+    "id" : "adtech.advertiser.fastcoin-profits",
+    "signals" : [ ],
+    "domain" : "fastcoin-profits.test",
+    "kind" : "adtech",
+    "category" : "crypto"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "Miracle Keto (FICTIONAL — illustrative scam advertiser)",
+    "id" : "adtech.advertiser.miracle-keto",
+    "signals" : [ ],
+    "domain" : "miracle-keto.test",
+    "kind" : "adtech",
+    "category" : "health-supplement"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "Celeb Wealth System (FICTIONAL — illustrative deepfake-endorsement scam)",
+    "id" : "adtech.advertiser.celeb-wealth",
+    "signals" : [ ],
+    "domain" : "celeb-wealth.test",
+    "kind" : "adtech",
+    "category" : "finance"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "SecureBank Login (FICTIONAL — illustrative phishing scam)",
+    "id" : "adtech.advertiser.phish-bank",
+    "signals" : [ ],
+    "domain" : "securebank-login.test",
+    "kind" : "adtech",
+    "category" : "finance"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "PC Shield Pro (FICTIONAL — illustrative malvertising/scareware)",
+    "id" : "adtech.advertiser.fake-av",
+    "signals" : [ ],
+    "domain" : "pcshield-pro.test",
+    "kind" : "adtech",
+    "category" : "saas"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "LuckySpin Casino (FICTIONAL — illustrative cloaking scam)",
+    "id" : "adtech.advertiser.cloak-casino",
+    "signals" : [ ],
+    "domain" : "luckyspin-casino.test",
+    "kind" : "adtech",
+    "category" : "gambling"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "BrandX Outlet (FICTIONAL — illustrative typosquat/counterfeit)",
+    "id" : "adtech.advertiser.typo-brandx",
+    "signals" : [ ],
+    "domain" : "brandx-0utlet.test",
+    "kind" : "adtech",
+    "category" : "ecommerce"
+  }, {
+    "sourcing" : "synthesized",
+    "country" : null,
+    "fraud" : true,
+    "group" : "advertiser",
+    "label" : "Parcel Redelivery (FICTIONAL — illustrative smishing/phishing scam)",
+    "id" : "adtech.advertiser.parcel-redelivery",
+    "signals" : [ ],
+    "domain" : "parcel-redelivery.test",
+    "kind" : "adtech",
+    "category" : "ecommerce"
+  }, {
+    "sourcing" : "representative",
+    "fraud" : false,
+    "group" : "creative",
+    "label" : "Spring sale — 20% off household essentials",
+    "id" : "adc.legit-0001",
+    "signals" : [ ],
+    "domain" : "consumerbrand.example",
+    "kind" : "creative",
+    "category" : "ecommerce"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "Turn $250 into $18,000 in 30 days with AI crypto trading (FICTIONAL example)",
+    "id" : "adc.scam-crypto-01",
+    "signals" : [ {
+      "kind" : "scam-finance",
+      "confidence" : 0.88,
+      "routed_to" : "tasuke"
+    } ],
+    "domain" : "fastcoin-profits.test",
+    "kind" : "creative",
+    "category" : "crypto"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "Lose 15kg in 2 weeks — doctors hate this trick (FICTIONAL example)",
+    "id" : "adc.scam-keto-01",
+    "signals" : [ {
+      "kind" : "counterfeit-goods",
+      "confidence" : 0.71,
+      "routed_to" : "kurashimori"
+    } ],
+    "domain" : "miracle-keto.test",
+    "kind" : "creative",
+    "category" : "health-supplement"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "[Celebrity] reveals secret wealth platform (FICTIONAL deepfake-endorsement example)",
+    "id" : "adc.scam-deepfake-01",
+    "signals" : [ {
+      "kind" : "fake-endorsement",
+      "confidence" : 0.86,
+      "routed_to" : "tasuke"
+    } ],
+    "domain" : "celeb-wealth.test",
+    "kind" : "creative",
+    "category" : "finance"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "Verify your bank account now to avoid suspension (FICTIONAL phishing example)",
+    "id" : "adc.scam-phishing-01",
+    "signals" : [ {
+      "kind" : "phishing-landing",
+      "confidence" : 0.93,
+      "routed_to" : "tasuke"
+    } ],
+    "domain" : "securebank-login.test",
+    "kind" : "creative",
+    "category" : "finance"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "WARNING: 5 viruses detected — clean your PC now (FICTIONAL malvertising example)",
+    "id" : "adc.scam-malware-01",
+    "signals" : [ {
+      "kind" : "malvertising-redirect",
+      "confidence" : 0.84,
+      "routed_to" : "tasuke"
+    } ],
+    "domain" : "pcshield-pro.test",
+    "kind" : "creative",
+    "category" : "saas"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "Play now — 500 free spins (FICTIONAL cloaking example: benign to reviewers, casino to users)",
+    "id" : "adc.scam-cloak-01",
+    "signals" : [ {
+      "kind" : "cloaking",
+      "confidence" : 0.77,
+      "routed_to" : "kurashimori"
+    } ],
+    "domain" : "luckyspin-casino.test",
+    "kind" : "creative",
+    "category" : "gambling"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "BrandX sneakers 80% off — official outlet (FICTIONAL typosquat/counterfeit example)",
+    "id" : "adc.scam-typo-01",
+    "signals" : [ {
+      "kind" : "typosquat-delivery",
+      "confidence" : 0.8,
+      "routed_to" : "kurashimori"
+    } ],
+    "domain" : "brandx-0utlet.test",
+    "kind" : "creative",
+    "category" : "ecommerce"
+  }, {
+    "sourcing" : "synthesized",
+    "fraud" : true,
+    "group" : "creative",
+    "label" : "Your parcel is held — pay a small redelivery fee (FICTIONAL smishing/phishing example)",
+    "id" : "adc.scam-phishing-02",
+    "signals" : [ {
+      "kind" : "phishing-landing",
+      "confidence" : 0.9,
+      "routed_to" : "tasuke"
+    } ],
+    "domain" : "parcel-redelivery.test",
+    "kind" : "creative",
+    "category" : "ecommerce"
+  } ],
+  "links" : [ {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ad-exchange.google-adx",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "pub-1001",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.magnite",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "magnite-7782",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.pubmatic",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "pm-55621",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ad-exchange.google-adx",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "pub-2002",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ad-exchange.index-exchange",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "idx-3310",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ad-network.taboola",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "tb-9001",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-ctv-app",
+    "target" : "adtech.ssp.magnite",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "ctv-4410",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.spoofed-news",
+    "target" : "adtech.ssp.fly-by-night",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "ctv-0000",
+    "unconfirmed" : true
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ad-exchange.openx",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "537143",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ad-exchange.index-exchange",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "184738",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.sovrn",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "273958",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.triplelift",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "11857",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.sharethrough",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "abcd1234",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.teads",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "28411",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ssp.pubmatic",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "156439",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ssp.magnite",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "9981",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ad-exchange.openx",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "540192",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ssp.gumgum",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "11099",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ssp.yieldmo",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "2208",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-weather",
+    "target" : "adtech.ssp.equativ",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "4471",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-ctv-app",
+    "target" : "adtech.ad-exchange.freewheel",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "ctv-220",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-ctv-app",
+    "target" : "adtech.ssp.roku-oneview",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "ctv-771",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-ctv-app",
+    "target" : "adtech.ssp.samsung-ads",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "ctv-305",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-ctv-app",
+    "target" : "adtech.ad-network.unity-ads",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "ctv-88",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.pubmatic",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "156440",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ad-exchange.index-exchange",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "184739",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.publisher.example-news",
+    "target" : "adtech.ssp.fly-by-night",
+    "type" : "auth",
+    "relationship" : "reseller",
+    "account_id" : "fbn-0000",
+    "unconfirmed" : true
+  }, {
+    "source" : "adtech.publisher.spoofed-news",
+    "target" : "adtech.ad-exchange.google-adx",
+    "type" : "auth",
+    "relationship" : "direct",
+    "account_id" : "pub-1001",
+    "unconfirmed" : true
+  }, {
+    "source" : "adc.legit-0001",
+    "target" : "adtech.ad-exchange.google-adx",
+    "type" : "served-via",
+    "relationship" : "served-via",
+    "unconfirmed" : false
+  }, {
+    "source" : "org.corp.us.consumer-brand-co",
+    "target" : "adc.legit-0001",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-crypto-01",
+    "target" : "adtech.ssp.fly-by-night",
+    "type" : "served-via",
+    "relationship" : "served-via",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.fastcoin-profits",
+    "target" : "adc.scam-crypto-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-keto-01",
+    "target" : "adtech.ssp.fly-by-night",
+    "type" : "served-via",
+    "relationship" : "served-via",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.miracle-keto",
+    "target" : "adc.scam-keto-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-deepfake-01",
+    "target" : "adtech.ssp.fly-by-night",
+    "type" : "served-via",
+    "relationship" : "served-via",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.celeb-wealth",
+    "target" : "adc.scam-deepfake-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.phish-bank",
+    "target" : "adc.scam-phishing-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.fake-av",
+    "target" : "adc.scam-malware-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.cloak-casino",
+    "target" : "adc.scam-cloak-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.typo-brandx",
+    "target" : "adc.scam-typo-01",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adtech.advertiser.parcel-redelivery",
+    "target" : "adc.scam-phishing-02",
+    "type" : "creative-of",
+    "relationship" : "creative-of",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-crypto-01",
+    "target" : "adc.scam-keto-01",
+    "type" : "shared-infra",
+    "relationship" : "shared-infra",
+    "asn" : "asn.64666",
+    "whois_org" : "BulletproofHost-Example",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-crypto-01",
+    "target" : "adc.scam-deepfake-01",
+    "type" : "shared-infra",
+    "relationship" : "shared-infra",
+    "asn" : "asn.64666",
+    "whois_org" : "BulletproofHost-Example",
+    "unconfirmed" : false
+  }, {
+    "source" : "adc.scam-keto-01",
+    "target" : "adc.scam-deepfake-01",
+    "type" : "shared-infra",
+    "relationship" : "shared-infra",
+    "asn" : "asn.64666",
+    "whois_org" : "BulletproofHost-Example",
+    "unconfirmed" : false
+  } ],
+  "meta" : {
+    "actor" : "sukashi",
+    "glyph" : "透かし",
+    "adr" : "2606071600",
+    "note" : "fraud-PROTECTION + ad-tech transparency map; NOT a target-list, NOT an ad-buying tool (G2). Non-adjudicating (G4). Fraud examples are FICTIONAL illustrative entities.",
+    "counts" : {
+      "fraud_nodes" : 18,
+      "creative_nodes" : 9,
+      "links" : 44,
+      "fraud_signals" : 12,
+      "nodes" : 83,
+      "shared_infra_links" : 3,
+      "adtech_nodes" : 74,
+      "auth_edges" : 28,
+      "unconfirmed_edges" : 3
+    }
+  }
+}

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>sukashi 透かし — ad-tech supply-chain + fraud-network map</title>
+<!--
+  sukashi 透かし viewer (ADR-2606071600). A fraud-PROTECTION + ad-tech TRANSPARENCY
+  surface, NEVER a target-list and NEVER an ad-buying / optimization tool (G2).
+  Non-adjudicating (G4) — fraud nodes/edges are flagged OBSERVATIONS, not verdicts.
+  Every fraud example is a CLEARLY-FICTIONAL illustrative entity (RFC-2606 .example/.test
+  domains, RFC-5737 documentation IP ranges). SELF-CONTAINED: payload inlined, no external
+  fetch / no CDN — opens offline via file://.
+-->
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#0b0e14; color:#cdd6f4; font:13px/1.5 ui-sans-serif,system-ui,sans-serif; }
+  header { padding:10px 14px; border-bottom:1px solid #1e2330; }
+  h1 { font-size:15px; margin:0 0 2px; }
+  .sub { color:#7f8aa3; font-size:11px; }
+  .warn { color:#fab387; font-size:11px; margin-top:4px; max-width:1000px; }
+  #bar { display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap; }
+  #q { flex:0 0 280px; background:#11151f; border:1px solid #1e2330; color:#cdd6f4;
+       border-radius:6px; padding:4px 8px; font:12px ui-sans-serif,system-ui,sans-serif; }
+  #q:focus { outline:none; border-color:#89b4fa; }
+  #legend { display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-size:11px; color:#9399b2; }
+  #legend .lg { display:inline-flex; align-items:center; gap:4px; }
+  #legend .sw { display:inline-block; width:10px; height:10px; border-radius:50%; }
+  #legend .ln { display:inline-block; width:18px; height:0; border-top:2px solid #fab387; }
+  #legend .ln.dash { border-top:2px dashed #f38ba8; }
+  #wrap { display:flex; height:calc(100vh - 140px); }
+  canvas { flex:1; display:block; cursor:grab; }
+  #side { width:320px; border-left:1px solid #1e2330; padding:12px; overflow:auto; }
+  #side h2 { font-size:13px; margin:0 0 6px; }
+  .kv { margin:2px 0; } .k { color:#7f8aa3; }
+  .pill { display:inline-block; padding:1px 6px; border-radius:8px; background:#1e2330; margin:1px 2px 1px 0; font-size:11px; }
+  .pill.fraud { background:#3a1c22; color:#f38ba8; }
+  table { width:100%; border-collapse:collapse; font-size:11px; }
+  td { padding:2px 4px; border-bottom:1px solid #161b26; }
+  #results { margin-top:4px; }
+  #results .row { padding:2px 0; cursor:pointer; border-bottom:1px solid #161b26; }
+  #results .row:hover { color:#89b4fa; }
+  a { color:#89b4fa; }
+</style>
+</head>
+<body>
+<header>
+  <h1>sukashi 透かし — ad-tech supply-chain + fraud-network map</h1>
+  <div class="sub">aggregate-first · fraud-protection + transparency · sourcing <span class="pill">:representative</span> · ADR-2606071600</div>
+  <div class="warn">Fraud-PROTECTION + transparency map — NOT a target-list, NOT an ad-buying tool (sukashi G2). Non-adjudicating (G4). Fraud examples are FICTIONAL illustrative entities.</div>
+  <div id="bar">
+    <input id="q" type="search" placeholder="search entity / role / domain / country …" autocomplete="off"/>
+    <span id="legend"></span>
+  </div>
+</header>
+<div id="wrap">
+  <canvas id="cv"></canvas>
+  <div id="side">
+    <h2>Fraud-flagged entities</h2>
+    <table id="fraudtab"></table>
+    <h2 style="margin-top:14px">Selected</h2>
+    <div id="sel" class="sub">click a node</div>
+  </div>
+</div>
+<script id="data" type="application/json">__SUKASHI_DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+
+// role → color (grouped by :adtech/role + creative). Fraud overrides to red at draw time.
+const ROLE_COLORS = {
+  advertiser:'#f9e2af', dsp:'#89b4fa', 'ad-exchange':'#94e2d5', ssp:'#74c7ec',
+  'ad-network':'#cba6f7', publisher:'#a6e3a1', verification:'#b4befe', creative:'#f5c2e7'
+};
+const FRAUD_COLOR = '#f38ba8';
+function color(g){ return ROLE_COLORS[(g||'').replace(/^:/,'')] || '#9399b2'; }
+
+// ─── legend ──────────────────────────────────────────────────────────────────
+(function legend(){
+  const el = document.getElementById('legend'); const parts = [];
+  for (const [g,c] of Object.entries(ROLE_COLORS))
+    parts.push('<span class="lg"><span class="sw" style="background:'+c+'"></span>'+g+'</span>');
+  parts.push('<span class="lg"><span class="sw" style="background:'+FRAUD_COLOR+'"></span>red = fraud-flagged</span>');
+  parts.push('<span class="lg"><span class="ln dash"></span>dashed = unconfirmed / unauthorized edge</span>');
+  el.innerHTML = parts.join('');
+})();
+
+// ─── scene ───────────────────────────────────────────────────────────────────
+let nodes=[], links=[], idx=new Map(), SEL=null, MATCH=null;
+
+function buildScene(view){
+  nodes = view.nodes.map((n,i)=>({ ...n,
+    x: Math.cos(i)*320 + (innerWidth*0.5-160), y: Math.sin(i*1.7)*260 + innerHeight*0.40,
+    vx:0, vy:0, deg:0 }));
+  idx = new Map(nodes.map(n=>[n.id,n]));
+  links = view.links.map(e=>({
+      s:idx.get(e.source), t:idx.get(e.target),
+      type:e.type, rel:e.relationship, unconfirmed:!!e.unconfirmed, asn:e.asn
+    })).filter(l=>l.s&&l.t);
+  for(const l of links){ l.s.deg++; l.t.deg++; }
+
+  const ft = document.getElementById('fraudtab'); ft.innerHTML='';
+  view.nodes.filter(n=>n.fraud).forEach(n=>{
+    const tr=document.createElement('tr');
+    tr.style.cursor='pointer';
+    tr.innerHTML='<td><span style="color:'+FRAUD_COLOR+'">●</span> '+
+      (n.label.length>30?n.label.slice(0,28)+'…':n.label)+'</td>'+
+      '<td style="text-align:right" class="k">'+(n.group||'')+'</td>';
+    tr.onclick=()=>{ const nn=idx.get(n.id); if(nn) showSelected(nn); };
+    ft.appendChild(tr);
+  });
+}
+
+function resize(){ cv.width = cv.clientWidth; cv.height = cv.clientHeight; }
+window.addEventListener('resize', resize); resize();
+
+function step(){
+  for(let i=0;i<nodes.length;i++){ for(let j=i+1;j<nodes.length;j++){
+    const a=nodes[i],b=nodes[j]; let dx=a.x-b.x,dy=a.y-b.y; let d2=dx*dx+dy*dy+0.01;
+    const f=1100/d2; const d=Math.sqrt(d2); dx/=d;dy/=d; a.vx+=dx*f;a.vy+=dy*f;b.vx-=dx*f;b.vy-=dy*f;
+  }}
+  for(const l of links){ let dx=l.t.x-l.s.x,dy=l.t.y-l.s.y; const d=Math.sqrt(dx*dx+dy*dy)+0.01;
+    const rest = l.type==='shared-infra' ? 70 : 130;
+    const f=(d-rest)*0.012; dx/=d;dy/=d; l.s.vx+=dx*f;l.s.vy+=dy*f;l.t.vx-=dx*f;l.t.vy-=dy*f; }
+  for(const n of nodes){ n.vx+=(cv.width/2-n.x)*0.0008; n.vy+=(cv.height/2-n.y)*0.0008;
+    n.x+=n.vx*=0.85; n.y+=n.vy*=0.85; }
+}
+
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(const l of links){
+    let stroke, w;
+    if(l.unconfirmed){ stroke='rgba(243,139,168,0.85)'; w=1.6; }       // dashed red warning
+    else if(l.type==='shared-infra'){ stroke='rgba(243,139,168,0.40)'; w=1.4; }
+    else if(l.type==='served-via'){ stroke='rgba(245,194,231,0.30)'; w=1.0; }
+    else if(l.type==='creative-of'){ stroke='rgba(148,226,213,0.28)'; w=0.9; }
+    else { stroke='rgba(120,130,160,0.30)'; w=1.0; }                   // confirmed auth
+    ctx.strokeStyle=stroke; ctx.lineWidth=w;
+    ctx.setLineDash(l.unconfirmed ? [5,4] : []);
+    ctx.beginPath(); ctx.moveTo(l.s.x,l.s.y); ctx.lineTo(l.t.x,l.t.y); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  for(const n of nodes){ const r=4+Math.sqrt(n.deg)*2.0; const hit = MATCH && MATCH.has(n.id);
+    ctx.fillStyle = n.fraud ? FRAUD_COLOR : color(n.group);
+    ctx.globalAlpha = (MATCH ? (hit?1:0.12) : (SEL && SEL!==n ? 0.5 : 1));
+    ctx.beginPath(); ctx.arc(n.x,n.y,r,0,7); ctx.fill();
+    if(n.fraud){ ctx.strokeStyle=FRAUD_COLOR; ctx.lineWidth=1.4;
+      ctx.beginPath(); ctx.arc(n.x,n.y,r+2.5,0,7); ctx.stroke(); }
+    if(hit){ ctx.strokeStyle='#f9e2af'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(n.x,n.y,r+4,0,7); ctx.stroke(); }
+    if(n.deg>=3||n===SEL||hit||n.fraud){ ctx.globalAlpha=1; ctx.fillStyle='#cdd6f4'; ctx.font='10px sans-serif';
+      const t=(n.label||n.id); ctx.fillText(t.length>26?t.slice(0,24)+'…':t, n.x+r+2, n.y+3); }
+    ctx.globalAlpha=1; }
+}
+function loop(){ step(); draw(); requestAnimationFrame(loop); }
+
+function showSelected(best){
+  SEL=best;
+  let sig='';
+  if(best.signals && best.signals.length){
+    sig = '<div class="kv"><span class="k">fraud signals</span></div>' +
+      best.signals.map(s=>'<div class="kv"><span class="pill fraud">'+s.kind+'</span> '+
+        'conf '+(s.confidence!=null?s.confidence:'—')+' → '+(s.routed_to||'—')+'</div>').join('');
+  }
+  document.getElementById('sel').innerHTML =
+    '<div class="kv"><b>'+best.label+'</b>'+(best.fraud?' <span class="pill fraud">fraud-flagged</span>':'')+'</div>'+
+    '<div class="kv"><span class="k">id</span> '+best.id+'</div>'+
+    '<div class="kv"><span class="k">role</span> <span class="pill">'+(best.group||'')+'</span></div>'+
+    (best.domain?'<div class="kv"><span class="k">domain</span> '+best.domain+'</div>':'')+
+    (best.country?'<div class="kv"><span class="k">country</span> '+best.country+'</div>':'')+
+    (best.category?'<div class="kv"><span class="k">category</span> <span class="pill">'+best.category+'</span></div>':'')+
+    '<div class="kv"><span class="k">sourcing</span> '+(best.sourcing||'—')+'</div>'+
+    '<div class="kv"><span class="k">degree</span> '+best.deg+'</div>'+
+    sig;
+}
+cv.addEventListener('click', ev=>{
+  const r=cv.getBoundingClientRect(), mx=ev.clientX-r.left, my=ev.clientY-r.top;
+  let best=null,bd=1e9; for(const n of nodes){ const d=(n.x-mx)**2+(n.y-my)**2; if(d<bd){bd=d;best=n;} }
+  if(bd>500) return; showSelected(best);
+});
+
+// ─── search ──────────────────────────────────────────────────────────────────
+const qbox = document.getElementById('q');
+qbox.addEventListener('input', ()=>{
+  const ql = qbox.value.trim().toLowerCase();
+  if(!ql){ MATCH=null; document.getElementById('sel').innerHTML='click a node'; return; }
+  const hits = nodes.filter(n=>[n.label,n.group,n.domain,n.country,n.id,n.category]
+    .some(f=>(f||'').toLowerCase().includes(ql)));
+  MATCH = new Set(hits.map(n=>n.id));
+  const side = document.getElementById('sel');
+  side.innerHTML = '<div class="kv k">'+hits.length+' match(es)</div><div id="results"></div>';
+  const res = side.querySelector('#results');
+  hits.slice(0,40).forEach(n=>{ const d=document.createElement('div'); d.className='row';
+    d.innerHTML='<span style="color:'+(n.fraud?FRAUD_COLOR:color(n.group))+'">●</span> '+n.label+
+      ' <span class="k">'+(n.group||'')+'</span>';
+    d.onclick=()=>showSelected(n); res.appendChild(d); });
+});
+
+// ─── boot ────────────────────────────────────────────────────────────────────
+buildScene(DATA);
+loop();
+</script>
+</body>
+</html>

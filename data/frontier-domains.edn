@@ -1,0 +1,53 @@
+;; sukashi 透かし — crawl frontier (ADR-2606071600 R1). The "where to look" list for the
+;; worldwide ad-supply-chain crawler (methods/crawl.py). Each entry names a REAL domain that
+;; publishes a PUBLIC IAB file (ads.txt for publishers, sellers.json for exchanges/SSPs) by the
+;; IAB Tech Lab spec. This is a bounded, representative seed of the frontier — the full worldwide
+;; frontier is enumerated from public registries (IAB Tech Lab, Common Crawl host list) at the
+;; G7 operator gate; this list lets the crawler run end-to-end without that enumeration.
+;;
+;; CONSTITUTIONAL: a frontier entry is "a domain whose ads.txt/sellers.json is worth observing",
+;; NEVER an accusation (G4 — real firms carry no fraud signal; that is decided downstream, only on
+;; CLEARLY-FICTIONAL synthesized entities). :sourcing :authoritative = it is a public fact that
+;; these domains serve these public files; absence of a domain ≠ illegitimacy (G5).
+;;
+;; :role ∈ :publisher (serves /ads.txt) | :app-publisher (serves /app-ads.txt) | :exchange | :ssp
+;;        (serve /sellers.json). All domains additionally have a public RDAP record.
+
+[;; ── web publishers (ads.txt) ──
+ {:domain "nytimes.com"          :role :publisher :sourcing :authoritative}
+ {:domain "theguardian.com"      :role :publisher :sourcing :authoritative}
+ {:domain "bbc.com"              :role :publisher :sourcing :authoritative}
+ {:domain "cnn.com"              :role :publisher :sourcing :authoritative}
+ {:domain "washingtonpost.com"   :role :publisher :sourcing :authoritative}
+ {:domain "forbes.com"           :role :publisher :sourcing :authoritative}
+ {:domain "businessinsider.com"  :role :publisher :sourcing :authoritative}
+ {:domain "reddit.com"           :role :publisher :sourcing :authoritative}
+ {:domain "weather.com"          :role :publisher :sourcing :authoritative}
+ {:domain "imdb.com"             :role :publisher :sourcing :authoritative}
+ {:domain "wikia.com"            :role :publisher :sourcing :authoritative}
+ {:domain "dailymail.co.uk"      :role :publisher :sourcing :authoritative}
+ {:domain "lemonde.fr"           :role :publisher :sourcing :authoritative}
+ {:domain "spiegel.de"           :role :publisher :sourcing :authoritative}
+ {:domain "asahi.com"            :role :publisher :sourcing :authoritative}
+ {:domain "yahoo.co.jp"          :role :publisher :sourcing :authoritative}
+
+ ;; ── exchanges / SSPs (sellers.json) ──
+ {:domain "pubmatic.com"         :role :exchange :sourcing :authoritative}
+ {:domain "rubiconproject.com"   :role :exchange :sourcing :authoritative}
+ {:domain "openx.com"            :role :exchange :sourcing :authoritative}
+ {:domain "indexexchange.com"    :role :exchange :sourcing :authoritative}
+ {:domain "sharethrough.com"     :role :ssp      :sourcing :authoritative}
+ {:domain "smaato.com"           :role :ssp      :sourcing :authoritative}
+ {:domain "criteo.com"           :role :exchange :sourcing :authoritative}
+ {:domain "smartadserver.com"    :role :ssp      :sourcing :authoritative}
+ {:domain "improvedigital.com"   :role :ssp      :sourcing :authoritative}
+ {:domain "gumgum.com"           :role :ssp      :sourcing :authoritative}
+ {:domain "triplelift.com"       :role :ssp      :sourcing :authoritative}
+ {:domain "google.com"           :role :exchange :sourcing :authoritative}
+ {:domain "appnexus.com"         :role :exchange :sourcing :authoritative}
+ {:domain "spotxchange.com"      :role :exchange :sourcing :authoritative}
+ {:domain "yieldmo.com"          :role :ssp      :sourcing :authoritative}
+
+ ;; ── app / CTV publishers (app-ads.txt) ──
+ {:domain "rovio.com"            :role :app-publisher :sourcing :authoritative}
+ {:domain "king.com"             :role :app-publisher :sourcing :authoritative}]

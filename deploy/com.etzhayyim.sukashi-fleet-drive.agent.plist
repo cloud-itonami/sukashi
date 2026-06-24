@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LaunchAGENT template for the (B) local fleet-drive pseudo-daemon (ADR-2606161645 path B).
+  Installed on an INTERACTIVE, tailnet-connected machine (the founder's mac, which HAS an Aqua GUI
+  session) — NOT on the headless fleet nodes (they have no GUI session, so use the LaunchDAEMON,
+  com.etzhayyim.sukashi-heartbeat.daemon.plist, there instead). Each hour at :42 it runs
+  `bb sukashi:fleet-drive`, which SSHes the sukashi-assigned fleet nodes, runs the heartbeat, and
+  records each run as a :fleet.run/* datom on the local kotoba ops commit-DAG.
+
+  Why a LaunchAgent here works while it failed on the fleet: this machine is logged into the Aqua
+  GUI (console-user = the human), so the per-user GUI domain accepts `launchctl load`. The fleet
+  Macs sit at the login window (console-user=root) and cannot.
+
+  Per-machine substitution (the operator does this at install):
+    @@USER@@     — the macOS user (e.g. junkawasaki)
+    @@HOME@@     — that user's home (e.g. /Users/junkawasaki)
+    @@WORKDIR@@  — a CURRENT etzhayyim/root checkout (repo root or a worktree) that has bb.edn +
+                   20-actors/sukashi/tools/fleet_drive.py. This dir MUST persist (it is the agent's
+                   working dir); do not `worktree cleanup` it while the agent is loaded.
+    @@BB@@       — absolute path to the babashka binary (e.g. /opt/homebrew/bin/bb)
+
+  Install (interactive machine, no sudo — runs while the user is logged in):
+    sed -e "s/@@USER@@/junkawasaki/g" -e "s#@@HOME@@#/Users/junkawasaki#g" \
+        -e "s#@@WORKDIR@@#<abs repo/worktree path>#g" -e "s#@@BB@@#/opt/homebrew/bin/bb#g" \
+        com.etzhayyim.sukashi-fleet-drive.agent.plist > ~/Library/LaunchAgents/com.etzhayyim.sukashi-fleet-drive.plist
+    launchctl load -w ~/Library/LaunchAgents/com.etzhayyim.sukashi-fleet-drive.plist
+    launchctl list | grep sukashi-fleet-drive
+  Remove:
+    launchctl unload ~/Library/LaunchAgents/com.etzhayyim.sukashi-fleet-drive.plist
+    rm ~/Library/LaunchAgents/com.etzhayyim.sukashi-fleet-drive.plist
+
+  Interim by design: this drives the fleet only while THIS machine is up. The true fleet daemon is
+  path A (the LaunchDaemon on each node). cloud schedule is NOT an option — a cloud runner has no
+  Tailscale access to the private fleet.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.etzhayyim.sukashi-fleet-drive</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>@@BB@@</string>
+    <string>sukashi:fleet-drive</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>@@WORKDIR@@</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Minute</key>
+    <integer>42</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>@@HOME@@/.etzhayyim/log/sukashi-fleet-drive.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>@@HOME@@/.etzhayyim/log/sukashi-fleet-drive.err.log</string>
+</dict>
+</plist>
