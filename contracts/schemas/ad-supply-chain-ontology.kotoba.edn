@@ -1,0 +1,163 @@
+;; ad-supply-chain-ontology — kotoba EAVT vocabulary for the AD-TECH SUPPLY CHAIN + delivery
+;; infrastructure + fraud-network observation. ADR-2606071600 · actor: sukashi 透かし (watermark /
+;; hold-to-the-light → authenticity verification; "see through" deceptive advertising).
+;;
+;; PURPOSE
+;;   A content-addressed Datom (EAVT) vocabulary describing the programmatic advertising
+;;   ecosystem as a knowledge graph, for FRAUD PROTECTION + ad-tech TRANSPARENCY:
+;;     - the AD-TECH entities (advertiser / agency / DSP / ad-exchange / SSP / ad-network /
+;;       publisher / verification / data-broker), reusing the shared org.corp.* id space so a
+;;       listed ad-tech company here is the same entity kabuto/tsumugi already hold;
+;;     - the first-class AUTHORIZATION edges parsed from the PUBLIC IAB web-standard files
+;;       ads.txt / app-ads.txt (a publisher declares which sellers may sell its inventory) and
+;;       sellers.json (an exchange declares its seller accounts) — the supply-chain backbone +
+;;       the two-sided handshake whose GAPS reveal spoofed / unauthorized inventory;
+;;     - the AD CREATIVES observed in the wild (who is publishing what message), linked to the
+;;       advertiser and the network that served them;
+;;     - the first-class DELIVERY edges that bind a creative / landing domain to the SERVING
+;;       infrastructure (IP / domain / ASN / WHOIS-org), REUSING the existing
+;;       ip-network-ontology (:ip/:asn/:iprange) + passive-dns-cti-ontology (:domain/:tlscert)
+;;       rather than re-modelling them (sukashi is the ad-tech lens over tadori's substrate);
+;;     - FRAUD SIGNALS (unauthorized-reseller / domain-spoof / sellers.json-mismatch /
+;;       scam-finance / fake-endorsement / phishing-landing / malvertising-redirect / …) carried
+;;       as evidence-bearing, confidence-scored, NON-ADJUDICATING observations routed to the
+;;       actors that act (akashi's malak evidence bridge / kurashimori / tasuke / danjo).
+;;   The lens is FRAUD PROTECTION + ad-tech accountability — where scam advertising concentrates
+;;   onto a serving network / ASN, where the authorization handshake is broken, routed to
+;;   takedown-referral + consumer protection. An aggregate-first protection map, NEVER a target-
+;;   list and NEVER a tool to buy / place / optimize / target / evade-detection ads (sukashi G2).
+;;
+;; RELATION TO akashi 証 (ADR-2606022300): akashi observes platform AD-LIBRARY disclosures
+;;   (Meta/X/Google/TikTok/LINE/EU-DSA). sukashi observes the AD-TECH SUPPLY CHAIN + delivery
+;;   infrastructure + fraud networks — the layer akashi is constitutionally bounded away from
+;;   (akashi G9 "no ad-tech SaaS"). They are siblings; sukashi hands fraud evidence to akashi's
+;;   com.etzhayyim.akashi.malakEvidenceCandidate bridge rather than running its own malak import.
+;;
+;; SUBSTRATE (ADR-2605262130 + 2605312345): canonical state is the kotoba Datom log. IPFS =
+;;   block backend, MST = ingress/interop wire, Base L2 = trust anchor. NO RisingWave, NO
+;;   centralized SQL. Creative media blobs (screenshots of scam ads, deepfake evidence) → DataLad
+;;   → IPFS under 80-data/ad-supply-chain (NO git-lfs; G8). Evidence that contains a natural
+;;   person's likeness (e.g. a deepfake-endorsement victim) is an ENCRYPTED envelope CID; the
+;;   person is excluded from the public graph (G9).
+;;
+;; SOURCING HONESTY (G5, mirrors kabuto/watatsuna/tsumugi/ip-network ontologies):
+;;   :*/sourcing ∈ { :authoritative  ; a PUBLIC primary artifact: a publisher's /ads.txt, an
+;;                                      exchange's /sellers.json, a public WHOIS/RDAP record, a
+;;                                      public DNS answer, an exchange's published seller list
+;;                   :representative  ; publicly documented but a bounded illustrative sample
+;;                                      (a creative observed once, a disclosed advertiser link)
+;;                   :synthesized }   ; derived/estimated by sukashi (fraud signals, clusters,
+;;                                      concentration metrics) — MUST be flagged, never asserted
+;;                                      as observed fact. Every fraud signal is :synthesized.
+;;   Every node and edge carries an explicit sourcing keyword. Absence of an entity = "not yet
+;;   ingested", never "does not exist" or "is legitimate".
+;;
+;; SCOPE GUARD (constitutional):
+;;   - PUBLIC ad-tech transparency data ONLY. ads.txt / app-ads.txt / sellers.json are public
+;;     web-standard files every publisher/exchange posts; creative content is as-published;
+;;     WHOIS-org / DNS / IP / ASN are public records. NO private user data, NO who-SAW / who-
+;;     CLICKED an ad, NO first-party audience segments, NO RTB bidstream, NO impression-level PII.
+;;   - sukashi is an OBSERVATORY, NOT an ad network. It NEVER serves, brokers, places, optimizes,
+;;     or targets ads; it is never a demand or supply node; it is never a commercial ad-intel
+;;     terminal (Charter 広告排除 invariant + Charter Rider §2(e) + akashi G9). This is meta-
+;;     observation OF advertising for fraud protection, not advertising.
+;;   - sukashi does NOT adjudicate (G4). A fraud SIGNAL is an evidence-bearing observation routed
+;;     to an actor that acts; it is NOT a verdict that an entity committed fraud (UPL / defamation
+;;     boundary; sibling of danjo + akashi).
+;;   - WEAPONIZABLE use is structurally unrepresentable: there is no attribute that helps place a
+;;     deceptive ad, build an audience, or EVADE fraud detection. Concentration + signals are
+;;     emitted aggregate-first toward takedown-referral + redundancy, never "who to hit" (G2/G12).
+
+{:schema/id        "ad-supply-chain-ontology"
+ :schema/version   "0.1.0"
+ :schema/adr       "2606071600"
+ :schema/note      "kotoba-native vocabulary for sukashi 透かし; ad-tech-supply-chain + delivery-infra + fraud-network sibling of akashi 証 (ad-library disclosure). Reuses org.corp.* (kabuto/tsumugi) for listed ad-tech firms and :ip/:asn/:domain refs from ip-network-ontology + passive-dns-cti-ontology (tadori, ADR-2606031600) for delivery infrastructure — sukashi does NOT re-model the network layer, it is the ad-tech lens over it."
+
+ :attributes
+ [;; ── :adtech/* — an entity in the programmatic advertising ecosystem ──
+  {:db/ident :adtech/id           :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "stable id; reuses org.corp.* where the firm is listed (e.g. \"org.corp.us.thetradedesk\"), else \"adtech.<role>.<domain-kebab>\" (e.g. \"adtech.ssp.pubmatic\")"}
+  {:db/ident :adtech/name         :db/valueType :db.type/string  :db/doc "legal / display name"}
+  {:db/ident :adtech/role         :db/valueType :db.type/keyword :db/doc ":advertiser | :agency | :dsp (demand-side platform) | :ad-exchange | :ssp (supply-side platform) | :ad-network | :publisher | :verification (fraud/brand-safety vendor) | :data-broker | :ad-server | :cmp (consent-mgmt)"}
+  {:db/ident :adtech/domain       :db/valueType :db.type/string  :db/doc "primary domain — the key that joins ads.txt / sellers.json / passive-dns (:domain/id)"}
+  {:db/ident :adtech/seller-type  :db/valueType :db.type/keyword :db/doc "sellers.json seller_type: :publisher | :intermediary | :both (only for entities that appear in a sellers.json)"}
+  {:db/ident :adtech/seller-id    :db/valueType :db.type/string  :db/doc "the entity's seller_id within an exchange's sellers.json (account identifier), if disclosed"}
+  {:db/ident :adtech/country      :db/valueType :db.type/string  :db/doc "ISO 3166-1 alpha-2 of domicile (public record), if known"}
+  {:db/ident :adtech/category     :db/valueType :db.type/keyword :db/doc "advertiser business category (free-ish keyword): :finance | :crypto | :health-supplement | :gambling | :ecommerce | :saas | :media | :gaming | :auto | :real-estate | :unknown — used to surface high-risk scam-prone verticals, NEVER to profile people (G9)"}
+  {:db/ident :adtech/listed-org   :db/valueType :db.type/ref     :db/doc ":company/id (kabuto) / :organism/id (tsumugi) if this ad-tech firm is also a tracked listed company / power-entity (shared org.corp.* space)"}
+  {:db/ident :adtech/sourcing     :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
+
+  ;; ── :adauth.edge/* — FIRST-CLASS authorization edge from ads.txt / app-ads.txt / sellers.json ──
+  ;;    The supply-chain backbone: publisher declares that `seller` may sell its inventory under
+  ;;    `account-id` as :direct (publisher's own account) or :reseller. The PUBLIC two-sided
+  ;;    handshake — declared in the publisher's ads.txt AND confirmed in the seller's sellers.json.
+  ;;    A DECLARED-but-not-CONFIRMED edge is the spoofed/unauthorized-inventory surface (sukashi's
+  ;;    headline fraud signal source).
+  {:db/ident :adauth.edge/id              :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "e.g. \"adauth.example-news.com->google.com:pub-7842:direct\""}
+  {:db/ident :adauth.edge/publisher       :db/valueType :db.type/ref     :db/doc ":adtech/id of the PUBLISHER whose /ads.txt (or /app-ads.txt) this row came from"}
+  {:db/ident :adauth.edge/seller          :db/valueType :db.type/ref     :db/doc ":adtech/id of the ad-system / exchange domain (ads.txt field 1)"}
+  {:db/ident :adauth.edge/account-id      :db/valueType :db.type/string  :db/doc "the publisher's account/seller id at the seller (ads.txt field 2)"}
+  {:db/ident :adauth.edge/relationship    :db/valueType :db.type/keyword :db/doc ":direct (publisher controls the account) | :reseller (an intermediary resells) — ads.txt field 3"}
+  {:db/ident :adauth.edge/cert-authority  :db/valueType :db.type/string  :db/doc "TAG-ID / certification authority id (ads.txt field 4), if present"}
+  {:db/ident :adauth.edge/declared        :db/valueType :db.type/boolean :db/doc "true = the row is present in the publisher's ads.txt (its side of the handshake)"}
+  {:db/ident :adauth.edge/confirmed       :db/valueType :db.type/boolean :db/doc "true = a matching seller_id is present in the seller's sellers.json (the other side). declared && !confirmed = unauthorized/spoofed surface"}
+  {:db/ident :adauth.edge/app             :db/valueType :db.type/string  :db/doc "bundle id / store id when sourced from app-ads.txt (mobile/CTV), else absent"}
+  {:db/ident :adauth.edge/sourcing        :db/valueType :db.type/keyword :db/doc "ads.txt / sellers.json are public files → typically :authoritative"}
+
+  ;; ── :adcreative/* — an ad creative / placement observed in the wild (who publishes what) ──
+  ;;    Distinct from akashi's source-library creativeDisclosure: this is the ad-tech-delivered
+  ;;    creative, the substrate for "which org is broadcasting which message".
+  {:db/ident :adcreative/id           :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "content-addressed id, e.g. \"adc.<sha256-prefix>\""}
+  {:db/ident :adcreative/advertiser   :db/valueType :db.type/ref     :db/doc ":adtech/id of the paying advertiser, as disclosed (\"paid for by\" / brand) — corporate only, never a person (G9)"}
+  {:db/ident :adcreative/headline     :db/valueType :db.type/string  :db/doc "the ad's public headline / primary copy (as-published)"}
+  {:db/ident :adcreative/landing-domain :db/valueType :db.type/string :db/doc "the click-through landing domain (joins :domain/id in passive-dns)"}
+  {:db/ident :adcreative/media-kind   :db/valueType :db.type/keyword :db/doc ":text | :image | :video | :native | :html5"}
+  {:db/ident :adcreative/media-cid    :db/valueType :db.type/string  :db/doc "KotobaCid of the creative media blob (DataLad→IPFS; encrypted envelope if it contains a person's likeness, G9)"}
+  {:db/ident :adcreative/lang         :db/valueType :db.type/string  :db/doc "BCP-47 language tag of the copy"}
+  {:db/ident :adcreative/category     :db/valueType :db.type/keyword :db/doc "disclosed/observed category (mirrors :adtech/category enum)"}
+  {:db/ident :adcreative/served-via   :db/valueType :db.type/ref     :db/doc ":adtech/id of the network/exchange/SSP that served it, if observable from the supply-chain object / seller chain"}
+  {:db/ident :adcreative/first-seen   :db/valueType :db.type/string  :db/doc "first observation datetime (ISO-8601)"}
+  {:db/ident :adcreative/last-seen    :db/valueType :db.type/string  :db/doc "most-recent observation datetime — Datomic as-of: a withdrawn creative is superseded, not deleted (非終末論)"}
+  {:db/ident :adcreative/sourcing     :db/valueType :db.type/keyword}
+
+  ;; ── :addelivery.edge/* — FIRST-CLASS edge: creative/landing → serving infrastructure ──
+  ;;    Binds an ad to WHERE it is served from. REUSES ip-network-ontology (:ip/:asn) +
+  ;;    passive-dns-cti-ontology (:domain) — the ref values are ids in those ontologies; sukashi
+  ;;    does not re-model the network layer (tadori owns it, ADR-2606031600).
+  {:db/ident :addelivery.edge/id          :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "e.g. \"deliv.adc.9f3a->ip.203.0.113.7\""}
+  {:db/ident :addelivery.edge/creative    :db/valueType :db.type/ref     :db/doc ":adcreative/id being delivered (or omit and use :landing-domain for an infra-only observation)"}
+  {:db/ident :addelivery.edge/landing-domain :db/valueType :db.type/string :db/doc "the landing/serving domain observed (joins :domain/id)"}
+  {:db/ident :addelivery.edge/ip          :db/valueType :db.type/ref     :db/doc ":ip/id (ip-network-ontology) that served / resolved the creative or landing domain"}
+  {:db/ident :addelivery.edge/asn         :db/valueType :db.type/ref     :db/doc ":asn/id (ip-network-ontology) announcing that IP — the hosting-network concentration key"}
+  {:db/ident :addelivery.edge/whois-org   :db/valueType :db.type/string  :db/doc "registrant ORGANISATION from public WHOIS/RDAP ONLY (never a natural person; personal registrants are dropped/encrypted, G9)"}
+  {:db/ident :addelivery.edge/registrar   :db/valueType :db.type/string  :db/doc "domain registrar (public WHOIS field) — a fraud-cluster co-occurrence key"}
+  {:db/ident :addelivery.edge/tls-cert-cid :db/valueType :db.type/string :db/doc "KotobaCid of the observed TLS cert / CT-log entry (joins passive-dns :tlscert), if collected"}
+  {:db/ident :addelivery.edge/observed-at :db/valueType :db.type/string  :db/doc "observation datetime (ISO-8601)"}
+  {:db/ident :addelivery.edge/sourcing    :db/valueType :db.type/keyword}
+
+  ;; ── :adfraud.signal/* — an evidence-bearing, NON-ADJUDICATING fraud/scam signal ──
+  ;;    A SIGNAL, not a verdict (G4). Routed to an actor that acts; sukashi only observes.
+  {:db/ident :adfraud.signal/id          :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "e.g. \"fraud.unauth.example.com->fly-by-night-ssp\""}
+  {:db/ident :adfraud.signal/subject     :db/valueType :db.type/ref     :db/doc "the id this signal is ABOUT: an :adtech/id, :adcreative/id, :adauth.edge/id, or :addelivery.edge/id"}
+  {:db/ident :adfraud.signal/kind        :db/valueType :db.type/keyword :db/doc ":unauthorized-reseller (ads.txt declared, sellers.json not confirmed) | :domain-spoof | :sellers-json-mismatch | :scam-finance (fake investment/crypto) | :fake-endorsement (deepfake/celebrity) | :phishing-landing | :malvertising-redirect | :counterfeit-goods | :cloaking | :typosquat-delivery | :shared-fraud-infra (creatives sharing serving infra + signals)"}
+  {:db/ident :adfraud.signal/confidence  :db/valueType :db.type/double  :db/doc "0.0..1.0 sukashi-computed confidence; a bounded estimate, NEVER a finding of guilt"}
+  {:db/ident :adfraud.signal/evidence-cid :db/valueType :db.type/string :db/doc "KotobaCid of the evidence bundle (the ads.txt/sellers.json diff, the screenshot, the redirect trace). Encrypted envelope if it contains a person's likeness (G9)"}
+  {:db/ident :adfraud.signal/routed-to   :db/valueType :db.type/keyword :db/doc "who ACTS on it (sukashi does not): :akashi-malak (com.etzhayyim.akashi.malakEvidenceCandidate bridge) | :kurashimori (consumer protection) | :tasuke (victim support) | :danjo (accountability)"}
+  {:db/ident :adfraud.signal/non-adjudicating :db/valueType :db.type/boolean :db/doc "const true — structural proof sukashi states a signal, not a verdict (G4)"}
+  {:db/ident :adfraud.signal/observed-at :db/valueType :db.type/string}
+  {:db/ident :adfraud.signal/sourcing    :db/valueType :db.type/keyword :db/doc "sukashi-computed signals are :synthesized; a third-party-reported indicator is :representative"}]
+
+ ;; ───────────────────────────── DERIVED (analyze.py, never stored as raw fact) ────
+ ;; sukashi computes these aggregate-first and emits them flagged :derived; not re-ingested.
+ :derived-attributes
+ [{:db/ident :adsupply/seller-fan-out      :db/doc "# distinct publishers that authorize a given seller (ads.txt) — high = a systemic seller many sites depend on (transparency signal, never a target, G2)"}
+  {:db/ident :adsupply/publisher-seller-count :db/doc "# distinct sellers a publisher authorizes — sprawl raises the spoofing surface"}
+  {:db/ident :adsupply/seller-betweenness   :db/doc "betweenness centrality of a seller in the publisher↔seller authorization graph ∝ C(fan-in,2) = # publisher-pairs it bridges — where supply-chain dependency structurally concentrates (transparency signal, NEVER a target, G2)"}
+  {:db/ident :adsupply/unconfirmed-rate    :db/doc "fraction of a seller's declared (ads.txt) edges NOT confirmed in its sellers.json — the unauthorized/spoofed-inventory surface; the headline supply-chain integrity signal"}
+  {:db/ident :adsupply/reseller-depth      :db/doc "longest :reseller chain reaching a publisher's inventory — depth obscures who actually monetizes the impression (opacity signal routed to transparency)"}
+  {:db/ident :adsupply/infra-concentration :db/doc "Σ fraud-weighted creative delivery per ASN / IP / registrar — where scam advertising concentrates onto one hosting network (routed to takedown-referral, NEVER a target-list, G2)"}
+  {:db/ident :adsupply/registrar-cooccurrence :db/doc "# fraud-flagged creatives sharing one domain registrar — a fraud-cluster co-occurrence key (registrar-shopping signal), routed to takedown-referral (G2)"}
+  {:db/ident :adsupply/whois-cooccurrence   :db/doc "# fraud-flagged creatives sharing one registrant ORGANISATION (public WHOIS, org-only per G9) — one operator behind many scam creatives; a fraud-cluster co-occurrence key, NEVER a target-list (G2)"}
+  {:db/ident :adfraud/cluster              :db/doc "a set of advertisers/creatives sharing serving infrastructure (ASN/registrar/WHOIS-org) AND ≥1 fraud signal = a candidate scam-ad NETWORK — aggregate-first, non-adjudicating, routed to protection actors (G4)"}
+  {:db/ident :adfraud/cluster-corroboration :db/doc "# distinct fraud-signal KINDS across a cluster's member creatives — multi-signal corroboration (independent kinds on one shared host evidence a single operation more strongly than repeats); weights :adfraud/network-rank. Still non-adjudicating (G4)"}
+  {:db/ident :adfraud/network-rank         :db/doc "ranking of fraud clusters by members × Σ confidence × (1 + 0.5·(corroboration−1)) — a protection/redundancy priority weighted by multi-signal corroboration, NEVER a target-list (G2)"}
+  {:db/ident :adfraud/category-load        :db/doc "Σ fraud-signal confidence per advertiser category — which verticals (finance/crypto/health-supplement/gambling) the scam surface concentrates in"}]}

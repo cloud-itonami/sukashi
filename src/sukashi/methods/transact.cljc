@@ -120,7 +120,7 @@
                       (-> *file* io/file .getAbsoluteFile .getParentFile .getParentFile))
                     (io/file "20-actors" "sukashi"))
            root (-> here .getParentFile .getParentFile)
-           schema-file (io/file root "00-contracts" "schemas" "ad-supply-chain-ontology.kotoba.edn")
+           schema-file (io/file root "contracts" "schemas" "ad-supply-chain-ontology.kotoba.edn")
            url (or (getenv "KOTOBA_URL") "http://127.0.0.1:8077")
            graph (if (some #{"--graph"} argv) (arg-after "--graph" nil) (getenv "SUKASHI_GRAPH_CID"))
            cacao (if (some #{"--cacao"} argv) (arg-after "--cacao" nil) (getenv "KOTOBA_CACAO_B64"))

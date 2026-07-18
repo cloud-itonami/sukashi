@@ -30,8 +30,8 @@ candidate **scam-ad network**.
 | supply chain / depends / follow graph + 可視化 | `:adauth.edge` authorization graph + `:addelivery.edge` + `viz/ad-supply-chain.htm` force-graph |
 | 詐欺広告・詐欺 actor の特定 | `:adfraud.signal` + shared-infra `:adfraud/cluster` (candidate scam-ad networks) |
 | 配信元の IP / DNS / WHOIS / 組織状況 | `:addelivery.edge` → `:ip`/`:asn` (ip-network) + `:domain` (passive-dns) + WHOIS-org/registrar |
-| kotoba datomic + IPFS 永続化 | `methods/transact.py` → kotoba `datomic.transact`; media/evidence → DataLad→IPFS |
-| 分析 | `methods/analyze.py` aggregate-first concentration + integrity + fraud-cluster metrics |
+| kotoba datomic + IPFS 永続化 | `src/sukashi/methods/transact.cljc` → kotoba `datomic.transact`; media/evidence → DataLad→IPFS |
+| 分析 | `src/sukashi/methods/analyze.cljc` aggregate-first concentration + integrity + fraud-cluster metrics |
 | loop で成熟度改善 | `MATURITY.md` + the self-paced maturity loop (grows coverage + metrics each iteration) |
 
 ## What it is NOT (constitutional)
@@ -50,7 +50,7 @@ candidate **scam-ad network**.
 ## Layout
 
 ```
-20-actors/sukashi/
+orgs/etzhayyim/com-etzhayyim-sukashi/
 ├── CLAUDE.md            # actor-local constitutional rules (read after repo-root CLAUDE.md)
 ├── README.md            # this file
 ├── MATURITY.md          # R0→R1 maturity ladder (the /loop tracks this)
@@ -69,14 +69,14 @@ candidate **scam-ad network**.
     └── test_sukashi.py  # 16 invariant + analyzer tests
 ```
 
-Vocabulary: `00-contracts/schemas/ad-supply-chain-ontology.kotoba.edn`.
-Lexicons: `00-contracts/lexicons/com/etzhayyim/sukashi/`.
+Vocabulary: `contracts/schemas/ad-supply-chain-ontology.kotoba.edn`.
+Lexicons: `wire/lexicons/`.
 
 ## Quickstart
 
 ```bash
-cd 20-actors/sukashi
-python3 methods/analyze.py        # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
+cd orgs/etzhayyim/com-etzhayyim-sukashi
+python3 src/sukashi/methods/analyze.cljc        # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
 python3 viz/build_viz_data.py     # → open viz/ad-supply-chain.htm in a browser
 ./run_tests.sh                    # 16 tests
 ```

@@ -8,7 +8,7 @@
 
 (defn- payload []
   (let [{:keys [adtech auth creatives delivery fraud]}
-        (edn/classify (edn/load-edn (io/resource "sukashi/data/seed-ad-supply-chain.kotoba.edn")))]
+        (edn/classify (edn/load-edn "data/seed-ad-supply-chain.kotoba.edn"))]
     (viz/build-payload adtech auth creatives delivery fraud)))
 
 (deftest payload-shape

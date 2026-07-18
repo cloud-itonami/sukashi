@@ -1,0 +1,2 @@
+{:canonical/format :edn :wire/root "wire" :wire/formats #{"json" "jsonld" "bpmn"}
+ :forbidden/extensions #{"go" "sh"} :standalone/path "orgs/etzhayyim/com-etzhayyim-sukashi"}

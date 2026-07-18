@@ -1,0 +1,65 @@
+{"lexicon" 1
+ "id" "com.etzhayyim.sukashi.registerCreative"
+ "defs" {"main" {"type" "procedure"
+ "description" "Assert an ad creative / placement observed in the wild into the kotoba Datom log (:adcreative/*) \u2014 the substrate for \"which org is broadcasting which message\", linked to the disclosed advertiser and the network that served it. Creative media blobs (screenshots of scam ads, deepfake evidence) go to DataLad \u2192 IPFS under 80-data/ad-supply-chain, NEVER git-lfs (G8); mediaCid carries the KotobaCid. Media containing a natural person's likeness (e.g. a deepfake-endorsement victim) is an ENCRYPTED-envelope CID and the person is excluded from the public graph (G9)."
+ "input" {"encoding" "application/json"
+ "schema" {"type" "object"
+ "required" ["creativeId"
+ "advertiser"
+ "sourcing"
+ "observedAt"]
+ "properties" {"creativeId" {"type" "string"
+ "description" ":adcreative/id \u2014 content-addressed id, e.g. \"adc.<sha256-prefix>\""}
+ "advertiser" {"type" "string"
+ "description" ":adtech/id of the paying advertiser, as disclosed (\"paid for by\" / brand) \u2014 corporate only, never a person (G9)"}
+ "headline" {"type" "string"
+ "description" ":adcreative/headline \u2014 the ad's public headline / primary copy (as-published)"}
+ "landingDomain" {"type" "string"
+ "description" ":adcreative/landing-domain \u2014 the click-through landing domain (joins :domain/id in passive-dns)"}
+ "mediaKind" {"type" "string"
+ "enum" ["text"
+ "image"
+ "video"
+ "native"
+ "html5"]
+ "description" ":adcreative/media-kind"}
+ "mediaCid" {"type" "string"
+ "description" ":adcreative/media-cid \u2014 KotobaCid of the creative media blob (DataLad\u2192IPFS; encrypted envelope if it contains a person's likeness, G9)"}
+ "lang" {"type" "string"
+ "description" ":adcreative/lang \u2014 BCP-47 language tag of the copy"}
+ "category" {"type" "string"
+ "enum" ["finance"
+ "crypto"
+ "health-supplement"
+ "gambling"
+ "ecommerce"
+ "saas"
+ "media"
+ "gaming"
+ "auto"
+ "real-estate"
+ "unknown"]
+ "description" ":adcreative/category \u2014 disclosed/observed category (mirrors :adtech/category enum)"}
+ "servedVia" {"type" "string"
+ "description" ":adcreative/served-via \u2014 :adtech/id of the network/exchange/SSP that served it, if observable from the supply-chain object / seller chain"}
+ "firstSeen" {"type" "string"
+ "format" "datetime"
+ "description" ":adcreative/first-seen \u2014 first observation datetime (ISO-8601)"}
+ "lastSeen" {"type" "string"
+ "format" "datetime"
+ "description" ":adcreative/last-seen \u2014 most-recent observation; Datomic as-of: a withdrawn creative is superseded, not deleted (\u975E\u7D42\u672B\u8AD6)"}
+ "sourcing" {"type" "string"
+ "enum" ["authoritative"
+ "representative"
+ "synthesized"]
+ "description" "sukashi G5; a creative observed once is typically :representative"}
+ "observedAt" {"type" "string"
+ "format" "datetime"}}}}
+ "output" {"encoding" "application/json"
+ "schema" {"type" "object"
+ "properties" {"ok" {"type" "boolean"}
+ "creativeId" {"type" "string"}
+ "txCid" {"type" "string"
+ "description" "kotoba transaction CID"}
+ "datomCount" {"type" "integer"}
+ "error" {"type" "string"}}}}}}}

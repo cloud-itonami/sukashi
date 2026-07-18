@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sukashi.registerFraudSignal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert an evidence-bearing, NON-ADJUDICATING fraud/scam signal into the kotoba Datom log (:adfraud.signal/*). CRITICAL (sukashi G4): this is a SIGNAL routed to an actor that ACTS, NEVER a verdict, finding, or accusation that an entity committed fraud (UPL / defamation boundary; sibling of danjo + akashi). sukashi only observes and does NOT adjudicate; every signal carries nonAdjudicating = true as structural proof. Fraud evidence routed to :akashi-malak is handed to akashi's com.etzhayyim.akashi.malakEvidenceCandidate bridge for malak handoff (G13) — sukashi never runs its own malak import or accusation. confidenceBp is a bounded estimate in BASIS POINTS (0..1000 = 0.0..1.0, integer implied units, mirrors kabuto's criticalityBp) to avoid floats, never a finding of guilt.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["signalId", "subject", "kind", "confidenceBp", "evidenceCid", "routedTo", "nonAdjudicating", "sourcing", "observedAt"],
+          "properties": {
+            "signalId": { "type": "string", "description": ":adfraud.signal/id, e.g. \"fraud.unauth.example.com->fly-by-night-ssp\"" },
+            "subject": { "type": "string", "description": ":adfraud.signal/subject — the id this signal is ABOUT: an :adtech/id, :adcreative/id, :adauth.edge/id, or :addelivery.edge/id" },
+            "kind": { "type": "string", "enum": ["unauthorized-reseller", "domain-spoof", "sellers-json-mismatch", "scam-finance", "fake-endorsement", "phishing-landing", "malvertising-redirect", "counterfeit-goods", "cloaking", "typosquat-delivery", "shared-fraud-infra"], "description": ":adfraud.signal/kind (keyword without colon)" },
+            "confidenceBp": { "type": "integer", "minimum": 0, "maximum": 1000, "description": ":adfraud.signal/confidence in BASIS POINTS of 1.0 (0..1000 = 0.0..1.0, integer implied units; mirrors kabuto criticalityBp to avoid floats); a bounded estimate, NEVER a finding of guilt (G4)" },
+            "evidenceCid": { "type": "string", "description": ":adfraud.signal/evidence-cid — KotobaCid of the evidence bundle (the ads.txt/sellers.json diff, the screenshot, the redirect trace). Encrypted envelope if it contains a person's likeness (G9)" },
+            "routedTo": { "type": "string", "enum": ["akashi-malak", "kurashimori", "tasuke", "danjo"], "description": ":adfraud.signal/routed-to — who ACTS on it (sukashi does not): :akashi-malak (akashi's malakEvidenceCandidate bridge, G13) | :kurashimori (consumer protection) | :tasuke (victim support) | :danjo (accountability)" },
+            "nonAdjudicating": { "type": "boolean", "description": ":adfraud.signal/non-adjudicating — MUST be true; structural proof sukashi states a signal, not a verdict (G4)" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "sukashi-computed signals are :synthesized; a third-party-reported indicator is :representative (G5)" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "signalId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

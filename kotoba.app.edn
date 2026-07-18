@@ -4,7 +4,7 @@
  :kotoba.app/version "0.1.0"
  :kotoba.app/components
  [{:name     "sukashi"
-   :src      "methods/mesh.clj"                  ; Clojure default → run + on-kse
+   :src      "src/sukashi.clj"                  ; Clojure default → run + on-kse
    :scale    1
    :triggers [{:type :kse :topic "etzhayyim/actor/sukashi"}]
    :requires #{:cap/kqe}}]

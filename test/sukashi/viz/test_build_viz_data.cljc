@@ -86,7 +86,7 @@
 
 (deftest test-seed-aggregate-counts
   ;; Pin the real seed payload counts against the trusted classify (golden via bb run).
-  (let [rows (edn/load-edn "20-actors/sukashi/data/seed-ad-supply-chain.kotoba.edn")
+  (let [rows (edn/load-edn "./data/seed-ad-supply-chain.kotoba.edn")
         {:keys [adtech auth creatives delivery fraud]} (edn/classify rows)
         c (get-in (v/build-payload adtech auth creatives delivery fraud) ["meta" "counts"])]
     (is (= 83 (get c "nodes")))

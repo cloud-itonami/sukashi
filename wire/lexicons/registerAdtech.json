@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sukashi.registerAdtech",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert an entity in the programmatic advertising ecosystem into the kotoba Datom log (:adtech/*). PUBLIC ad-tech transparency data ONLY — name, role, primary domain, sellers.json seller_type / seller_id, domicile, advertiser business category (sukashi G1); reuses the shared org.corp.* id space so a listed ad-tech firm here is the same entity kabuto/tsumugi already hold. NEVER personal PII — an advertiser is a CORPORATE entity only, never a natural person, and there is no who-saw / who-clicked attribute (sukashi G9).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["adtechId", "name", "role", "sourcing", "observedAt"],
+          "properties": {
+            "adtechId": { "type": "string", "description": ":adtech/id; reuses org.corp.* where the firm is listed (e.g. \"org.corp.us.thetradedesk\"), else \"adtech.<role>.<domain-kebab>\" (e.g. \"adtech.ssp.pubmatic\")" },
+            "name": { "type": "string", "description": "legal / display name" },
+            "role": { "type": "string", "enum": ["advertiser", "agency", "dsp", "ad-exchange", "ssp", "ad-network", "publisher", "verification", "data-broker", "ad-server", "cmp"], "description": ":adtech/role (keyword without colon); :advertiser is a corporate entity only, never a person (G9)" },
+            "domain": { "type": "string", "description": "primary domain — the key that joins ads.txt / sellers.json / passive-dns (:domain/id)" },
+            "sellerType": { "type": "string", "enum": ["publisher", "intermediary", "both"], "description": ":adtech/seller-type — sellers.json seller_type (only for entities that appear in a sellers.json)" },
+            "sellerId": { "type": "string", "description": ":adtech/seller-id — the entity's seller_id within an exchange's sellers.json (account identifier), if disclosed" },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-2 of domicile (public record), if known" },
+            "category": { "type": "string", "enum": ["finance", "crypto", "health-supplement", "gambling", "ecommerce", "saas", "media", "gaming", "auto", "real-estate", "unknown"], "description": ":adtech/category — advertiser business category to surface high-risk scam-prone verticals, NEVER to profile people (G9)" },
+            "listedOrg": { "type": "string", "description": ":adtech/listed-org — :company/id (kabuto) / :organism/id (tsumugi) if this ad-tech firm is also a tracked listed company / power-entity (shared org.corp.* space)" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "sukashi G5 sourcing honesty" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "adtechId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

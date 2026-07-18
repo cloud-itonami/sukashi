@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sukashi.socialPost",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Compose an app.bsky.feed.post of an aggregate ad-tech-transparency finding. OUTWARD-GATED (sukashi G11): live atproto posting requires SUKASHI_LIVE_POST + operator auth, and every post body passes a Charter Rider §2(a)-(h) scan before it can be emitted. AGGREGATE-FIRST only (G3); the post NEVER names a real firm as fraudulent — sukashi does not adjudicate (G4).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["text", "sourcing", "observedAt"],
+          "properties": {
+            "text": { "type": "string", "description": "the post body — aggregate finding only; never names a real firm as fraudulent (G4); passes Charter Rider §2(a)-(h) scan (G11)" },
+            "reportCid": { "type": "string", "description": "optional KotobaCid of the backing intel report (publishIntelReport)" },
+            "langs": {
+              "type": "array",
+              "description": "optional BCP-47 language tags for the post (app.bsky.feed.post langs)",
+              "items": { "type": "string" }
+            },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "sukashi G5; an aggregate-finding post is typically :synthesized" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "uri": { "type": "string", "description": "at:// URI of the created app.bsky.feed.post" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

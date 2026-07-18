@@ -1,0 +1,4 @@
+{:migration/id :sukashi/standalone-cutover :status :complete
+ :source/root "20-actors/sukashi" :target/repository "orgs/etzhayyim/com-etzhayyim-sukashi"
+ :canonical/format :edn :wire/root "wire" :pruned #{:go :tinygo :shell :legacy-python-cell}
+ :root/cleanup ["20-actors/sukashi" "00-contracts/lexicons/com/etzhayyim/sukashi"]}

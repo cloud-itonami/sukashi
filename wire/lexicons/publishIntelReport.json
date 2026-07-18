@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sukashi.publishIntelReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish the aggregate-first ad-tech-supply-chain + fraud-network intel report (CID + period + aggregate statistics) into the kotoba Datom log. AGGREGATE-FIRST (sukashi G3): the report carries only aggregate counts (label → count), never per-entity accusations. NON-ADJUDICATING (G4): it states evidence-bearing signals and concentration, never a verdict that an entity committed fraud. A fraud-PROTECTION + ad-tech-TRANSPARENCY map, NEVER a target-list (G2).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["reportCid", "periodStart", "periodEnd", "aggregateStats", "sourcing", "observedAt"],
+          "properties": {
+            "reportCid": { "type": "string", "description": "KotobaCid of the published intel report (DataLad→IPFS)" },
+            "periodStart": { "type": "string", "format": "datetime", "description": "start of the observation window (ISO-8601)" },
+            "periodEnd": { "type": "string", "format": "datetime", "description": "end of the observation window (ISO-8601)" },
+            "aggregateStats": {
+              "type": "array",
+              "description": "aggregate-first counts only (G3); no per-entity accusations",
+              "items": { "type": "ref", "ref": "#aggregateStat" }
+            },
+            "methodNoteCid": { "type": "string", "description": "optional KotobaCid of the methodology note (how aggregates + signals were computed; sourcing honesty, G5)" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "sukashi G5; an aggregate report is typically :synthesized" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "reportCid": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "aggregateStat": {
+      "type": "object",
+      "description": "one aggregate-first count (label → count); never a per-entity accusation (G3/G4)",
+      "required": ["label", "count"],
+      "properties": {
+        "label": { "type": "string", "description": "aggregate dimension label, e.g. \"unconfirmed-edges\", \"fraud-clusters\", \"category:finance\"" },
+        "count": { "type": "integer", "description": "count for that label" }
+      }
+    }
+  }
+}

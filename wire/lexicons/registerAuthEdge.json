@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sukashi.registerAuthEdge",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert a first-class AUTHORIZATION edge into the kotoba Datom log (:adauth.edge/*), parsed from the PUBLIC IAB web-standard files ads.txt / app-ads.txt / sellers.json. A publisher declares which seller may sell its inventory under an account-id as :direct or :reseller — the supply-chain backbone + the two-sided handshake. ads.txt / sellers.json are public files every publisher/exchange posts, so an edge is typically :authoritative. A DECLARED-but-not-CONFIRMED edge (declared && !confirmed) is the unauthorized / spoofed-inventory surface — sukashi's headline fraud-signal source. sukashi is an OBSERVATORY, NOT an ad network (G2).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["edgeId", "publisher", "seller", "accountId", "relationship", "declared", "sourcing", "observedAt"],
+          "properties": {
+            "edgeId": { "type": "string", "description": ":adauth.edge/id, e.g. \"adauth.example-news.com->google.com:pub-7842:direct\"" },
+            "publisher": { "type": "string", "description": ":adtech/id of the PUBLISHER whose /ads.txt (or /app-ads.txt) this row came from" },
+            "seller": { "type": "string", "description": ":adtech/id of the ad-system / exchange domain (ads.txt field 1)" },
+            "accountId": { "type": "string", "description": ":adauth.edge/account-id — the publisher's account/seller id at the seller (ads.txt field 2)" },
+            "relationship": { "type": "string", "enum": ["direct", "reseller"], "description": ":direct (publisher controls the account) | :reseller (an intermediary resells) — ads.txt field 3" },
+            "certAuthority": { "type": "string", "description": ":adauth.edge/cert-authority — TAG-ID / certification authority id (ads.txt field 4), if present" },
+            "declared": { "type": "boolean", "description": "true = the row is present in the publisher's ads.txt (its side of the handshake)" },
+            "confirmed": { "type": "boolean", "description": "true = a matching seller_id is present in the seller's sellers.json (the other side). declared && !confirmed = the unauthorized / spoofed-inventory surface" },
+            "app": { "type": "string", "description": ":adauth.edge/app — bundle id / store id when sourced from app-ads.txt (mobile/CTV), else absent" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"], "description": "ads.txt / sellers.json are public files → typically :authoritative (G5)" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "edgeId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID" },
+            "datomCount": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

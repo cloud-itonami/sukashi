@@ -200,7 +200,3 @@
   (is (= #{"sellers.json" "rdap"} (set (C/kinds-for-role "exchange"))))
   (is (= #{"sellers.json" "rdap"} (set (C/kinds-for-role "ssp"))))
   (is (= #{"app-ads.txt" "rdap"}  (set (C/kinds-for-role "app-publisher")))))
-
-(when (= *file* (System/getProperty "babashka.file"))
-  (let [r (run-tests 'sukashi.tests.test-crawl)]
-    (System/exit (if (zero? (+ (:fail r) (:error r))) 0 1))))

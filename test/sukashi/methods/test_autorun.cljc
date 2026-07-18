@@ -101,7 +101,7 @@
       (finally (.delete log)))))
 
 (deftest test-no-external-io
-  (let [methods-dir autorun/here   ; the actor's methods/ dir (absolute, resolved by autorun)
+  (let [methods-dir (io/file "src" "sukashi" "methods")
         src (str (slurp (io/file methods-dir "autorun.cljc"))
                  (slurp (io/file methods-dir "kotoba.cljc")))]
     (doseq [banned ["urllib" "http.client" "socket" "requests" "subprocess"]]
@@ -120,8 +120,3 @@
                cids)
             "tx CIDs reproduce python3 autorun.py byte-for-byte"))
       (finally (.delete log)))))
-
-#?(:clj
-   (do
-     (defn -main [& _] (run-tests 'sukashi.methods.test-autorun))
-     (when (= *file* (System/getProperty "babashka.file")) (-main))))
