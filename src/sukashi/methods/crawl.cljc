@@ -18,11 +18,12 @@
              GET-only, and holds no anti-bot bypass capability.
     G9     — RDAP keeps registrant ORG only (bridge-whois in ingest drops personal fields).
 
-  The `fetcher` parameter is injectable (tests pass a stub; default = babashka.http-client).
+  The `fetcher` parameter is a required explicit capability for every live crawl.
   NO network/subprocess I/O at load/require time."
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.ingest :as ingest]
+            #?(:clj [cheshire.core :as json])
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── Constants ────────────────────────────────────────────────────────────────
@@ -36,23 +37,6 @@
    "app-ads.txt"  "https://{d}/app-ads.txt"
    "sellers.json" "https://{d}/sellers.json"
    "rdap"         "https://rdap.org/domain/{d}"})
-
-;; ── Default fetcher (declared first so crawl can reference it) ───────────────
-
-#?(:clj
-   (defn default-fetcher
-     "Respectful GET of a PUBLIC file → {:status int :body str}. GET-only, honest UA (G12).
-     Uses babashka.http-client (available in bb). Only invoked when live (G7 gate)."
-     [url]
-     (try
-       (let [resp (babashka.http-client/get url
-                                            {:headers {"User-Agent" ua
-                                                       "Accept"     "text/plain, application/json"}
-                                             :as      :string
-                                             :throw   false})]
-         {:status (:status resp) :body (or (:body resp) "")})
-       (catch Exception _
-         {:status 0 :body ""}))))
 
 ;; ── Pure helpers ─────────────────────────────────────────────────────────────
 
@@ -92,7 +76,7 @@
       "sellers.json"
       #?(:clj
          (try
-           (let [parsed ((requiring-resolve 'cheshire.core/parse-string) text)]
+           (let [parsed (json/parse-string text)]
              (vec (vals (ingest/parse-sellers-json parsed))))
            (catch Exception _ []))
          :cljs [])
@@ -100,7 +84,7 @@
       "rdap"
       #?(:clj
          (try
-           (let [obj ((requiring-resolve 'cheshire.core/parse-string) text)
+           (let [obj (json/parse-string text)
                  obj (if (contains? obj "domain") obj (assoc obj "domain" domain))]
              (ingest/bridge-whois [obj]))
            (catch Exception _ []))
@@ -130,7 +114,7 @@
 
   Options:
     :frontier      seq of {:domain :role :sourcing} maps (required)
-    :fetcher       fn[url] → {:status int :body str}  (only used when live; default = default-fetcher)
+    :fetcher       required fn[url] → {:status int :body str} when live
     :gate          override the env check (boolean or nil → read env)
     :live-dir      path string for cached files (only used when live)
     :max-domains   truncate frontier to this many domains
@@ -159,7 +143,10 @@
 
       ;; LIVE: fetch + parse
       #?(:clj
-         (let [f        (or fetcher default-fetcher)
+         (let [_        (when-not (fn? fetcher)
+                          (throw (ex-info "sukashi live crawl requires an explicit fetch capability"
+                                          {:capability :http-get})))
+               f        fetcher
                ld       (or live-dir "data/live")
                _        (.mkdirs (io/file ld))
                fetched  (atom [])

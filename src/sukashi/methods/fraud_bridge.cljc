@@ -15,6 +15,7 @@
   own sukashi-edn (load-edn + classify). The emitted records are ordered maps so the JSON key order
   is byte-identical to the Python dict insertion order."
   (:require [sukashi.methods.sukashi-edn :as edn]
+            #?(:clj [cheshire.core :as json])
             #?(:clj [clojure.java.io :as io])))
 
 (def attesting-did "did:web:etzhayyim.com:actor:sukashi")
@@ -77,8 +78,7 @@
            candidates (bridge-to-malak fraud)
            outfile (io/file outdir "akashi-malak-candidates.json")]
        (.mkdirs outdir)
-       (spit outfile (str ((requiring-resolve 'cheshire.core/generate-string)
-                           candidates {:pretty true}) "\n"))
+       (spit outfile (str (json/generate-string candidates {:pretty true}) "\n"))
        (println (str "sukashi.fraud_bridge: " (count candidates) " candidate-evidence record(s) → akashi "
                      "malakEvidenceCandidate (reviewStatus=candidate-only; NO live import — G13). "
                      "wrote " outfile))

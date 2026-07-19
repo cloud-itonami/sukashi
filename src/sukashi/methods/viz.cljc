@@ -18,6 +18,7 @@
   #?(:clj) -main edge only."
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
+            #?(:clj [cheshire.core :as json])
             #?(:clj [clojure.java.io :as io])))
 
 (defn kw*
@@ -147,17 +148,16 @@
    (defn -main
      "Build the viz payload + self-contained viewer. Arg: [seed-edn] (default the actor seed)."
      [& args]
-     (let [json-str (requiring-resolve 'cheshire.core/generate-string)
-           seed (if (and (first args) (not (str/starts-with? (first args) "--")))
+     (let [seed (if (and (first args) (not (str/starts-with? (first args) "--")))
                   (io/file (first args))
                   (io/file (.getParentFile here) "data" "seed-ad-supply-chain.kotoba.edn"))
            {:keys [adtech auth creatives delivery fraud]} (edn/classify (edn/load-edn seed))
            payload (build-payload adtech auth creatives delivery fraud)
            tmpl (slurp (io/file here "template.htm"))]
        (spit (io/file here "ad-supply-chain.json")
-             (str (json-str payload {:pretty true}) "\n"))
+             (str (json/generate-string payload {:pretty true}) "\n"))
        (spit (io/file here "ad-supply-chain.htm")
-             (str/replace tmpl "__SUKASHI_DATA__" (json-str payload)))
+             (str/replace tmpl "__SUKASHI_DATA__" (json/generate-string payload)))
        (let [c (get payload "meta")]
          (let [c (get c "counts")]
            (println (format (str "sukashi.viz: %d nodes (%d ad-tech + %d creative, %d fraud-flagged), "
