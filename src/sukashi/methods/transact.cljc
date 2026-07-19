@@ -21,6 +21,7 @@
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.kotoba :as kotoba]
+            #?(:clj [cheshire.core :as json])
             #?(:clj [clojure.java.io :as io])))
 
 (def nsid-transact "com.etzhayyim.apps.kotoba.datomic.transact")
@@ -99,14 +100,14 @@
                   (.setReadTimeout 60000)
                   (.setRequestProperty "Content-Type" "application/json"))
            _ (when token (.setRequestProperty conn "Authorization" (str "Bearer " token)))
-           payload ((requiring-resolve 'cheshire.core/generate-string) body)]
+           payload (json/generate-string body)]
        (with-open [os (.getOutputStream conn)]
          (.write os (.getBytes ^String payload "UTF-8")))
        (let [status (.getResponseCode conn)
              stream (if (>= status 400) (.getErrorStream conn) (.getInputStream conn))
              txt (if stream (slurp stream) "")]
          (try
-           [status ((requiring-resolve 'cheshire.core/parse-string) (if (str/blank? txt) "{}" txt))]
+           [status (json/parse-string (if (str/blank? txt) "{}" txt))]
            (catch Exception _ [status {"error" txt}]))))))
 
 #?(:clj

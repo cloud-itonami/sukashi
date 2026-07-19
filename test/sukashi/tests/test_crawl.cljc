@@ -131,6 +131,13 @@
 
 ;; ── crawl with injected fetcher (live path, no real network) ─────────────────
 
+(deftest test-live-gate-without-fetch-capability-fails-closed
+  #?(:clj
+     (is (thrown-with-msg? clojure.lang.ExceptionInfo #"explicit fetch capability"
+                           (C/crawl {:frontier [{":domain" "example.com"
+                                                ":role" "publisher"}]
+                                     :gate true})))))
+
 (deftest test-crawl-injected-fetcher-ads-txt
   ;; A mock fetcher returns a simple ads.txt; crawl should parse it → rows
   (let [ads-txt-body "google.com, pub-12345, DIRECT, f08c47fec0942fa0"
