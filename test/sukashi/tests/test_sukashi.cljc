@@ -19,7 +19,7 @@
             [clojure.string :as str]
             [clojure.set]
             [clojure.java.io :as io]
-            [cheshire.core :as json]
+            [json.compat :as json]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.analyze :as A]))
 

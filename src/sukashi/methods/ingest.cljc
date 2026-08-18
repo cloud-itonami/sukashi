@@ -16,7 +16,7 @@
   Python dict insertion order. Re-uses the actor's own sukashi-edn (load-edn + edn-str)."
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
-            #?(:clj [cheshire.core :as json])
+            [json.compat :as json]
             #?(:clj [clojure.java.io :as io])))
 
 ;; Documented full-web endpoints — NOT fetched unless the operator gate is set.

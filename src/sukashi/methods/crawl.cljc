@@ -23,7 +23,7 @@
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.ingest :as ingest]
-            #?(:clj [cheshire.core :as json])
+            [json.compat :as json]
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── Constants ────────────────────────────────────────────────────────────────
