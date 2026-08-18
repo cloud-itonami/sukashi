@@ -21,7 +21,7 @@
   (:require [clojure.string :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.kotoba :as kotoba]
-            #?(:clj [cheshire.core :as json])
+            [json.compat :as json]
             #?(:clj [clojure.java.io :as io])))
 
 (def nsid-transact "com.etzhayyim.apps.kotoba.datomic.transact")
