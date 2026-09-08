@@ -14,7 +14,7 @@
   House style: pure parsers (parse-ads-txt / parse-sellers-json / bridge-whois / emit); host/file/
   JSON I/O only behind #?(:clj …). Keyword-strings kept verbatim; map order preserved to mirror
   Python dict insertion order. Re-uses the actor's own sukashi-edn (load-edn + edn-str)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [json.compat :as json]
             #?(:clj [clojure.java.io :as io])))
@@ -35,7 +35,7 @@
 (defn- slugify
   "re.sub(r'[^a-z0-9]+', '-', s.lower()).strip('-')."
   [s]
-  (-> (str/lower-case (str s))
+  (-> (str/lower (str s))
       (str/replace #"[^a-z0-9]+" "-")
       (str/replace #"^-+" "")
       (str/replace #"-+$" "")))
@@ -66,7 +66,7 @@
                (recur (rest lines) sellers edges)
                (let [domain (nth parts 0)
                      account (nth parts 1)
-                     rel (str/lower-case (nth parts 2))
+                     rel (str/lower (nth parts 2))
                      cert (when (> (count parts) 3) (nth parts 3))
                      seller-id (seller-id-from-domain domain)
                      sellers (if (contains? sellers seller-id)
@@ -108,7 +108,7 @@
                      (as-> r (cond-> r
                                (truthy? (get s "name")) (assoc ":adtech/name" (get s "name"))
                                (truthy? dom) (assoc ":adtech/domain" dom))))
-               st (str/lower-case (str (get s "seller_type" "")))
+               st (str/lower (str (get s "seller_type" "")))
                rec (if (contains? #{"publisher" "intermediary" "both"} st)
                      (assoc rec ":adtech/seller-type" (str ":" st))
                      rec)]

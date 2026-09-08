@@ -22,7 +22,7 @@
   'datoms':…}, ensure_ascii=False, sort_keys=True, separators=(',',':')).encode('utf-8'))
   .hexdigest()` byte-for-byte. (The Python `__main__` heartbeat printer is omitted — it is the
   autorun.cljc -main concern.) Re-uses the actor's own sukashi-edn reader for log read-back."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             #?(:clj [clojure.java.io :as io])))
 

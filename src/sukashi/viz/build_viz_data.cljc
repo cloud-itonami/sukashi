@@ -9,7 +9,7 @@
   Ported: the pure-stdlib `_kw` helper + `build_payload`. OMITTED (render/IO legs, not ported):
   `main()` file-writing + the self-contained HTML_TEMPLATE viewer. The dead `cre_by_id` local in
   the Python (built but never read) is dropped — it has no effect on the payload."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]))
 
 (defn kw*

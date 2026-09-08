@@ -19,7 +19,7 @@
   stable sort-by ties exactly the Python dict iteration order. Float formatting mirrors
   Python str()/round(): round() uses HALF_EVEN via exact BigDecimal.(double); the report +
   derived datoms are byte-identical to the Python emit."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             #?(:clj [clojure.java.io :as io])))
 

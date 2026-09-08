@@ -12,7 +12,7 @@
   No real network calls. The operator gate is bypassed via the :fetcher opt (injected
   stub) or explicitly false :gate."
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [sukashi.methods.crawl :as C]))
 
 ;; ── urls-for (pure, G1/G2 invariant) ─────────────────────────────────────────

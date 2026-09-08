@@ -1,6 +1,6 @@
 (ns sukashi.repository-contract-test
   (:require [clojure.edn :as edn] [clojure.java.io :as io]
-            [clojure.string :as str] [clojure.test :refer [deftest is]]))
+            [kotoba.lang.text :as str] [clojure.test :refer [deftest is]]))
 (defn files [] (filter #(.isFile %) (file-seq (io/file "."))))
 (deftest canonical-edn-is-readable
   (doseq [file (files) :when (str/ends-with? (.getName file) ".edn")]
