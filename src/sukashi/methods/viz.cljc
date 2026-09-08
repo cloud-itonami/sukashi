@@ -16,7 +16,7 @@
 
   build-payload is pure; the file I/O (read seed, write json/htm, read template) is the
   #?(:clj) -main edge only."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [json.compat :as json]
             #?(:clj [clojure.java.io :as io])))

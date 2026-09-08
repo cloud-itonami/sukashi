@@ -20,7 +20,7 @@
 
   The `fetcher` parameter is a required explicit capability for every live crawl.
   NO network/subprocess I/O at load/require time."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.ingest :as ingest]
             [json.compat :as json]

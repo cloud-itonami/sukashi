@@ -8,7 +8,7 @@
   string-keyed, byte-for-byte the same as the Python port.
 
   House style: pure fns; file I/O only at #?(:clj) edges; closed reader subset."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             #?(:clj [clojure.java.io :as io])))
 
 ;; ── minimal EDN reader (subset) ──────────────────────────────────────────────

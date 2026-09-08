@@ -12,7 +12,7 @@
       :sourcing :synthesized — no real entity is implicated;
     - it does NO external I/O (offline ingest, local persist — G7/G11 stay gated)."
   (:require [clojure.test :refer [deftest is run-tests]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             #?(:clj [clojure.java.io :as io])
             [sukashi.methods.autorun :as autorun]
             [sukashi.methods.kotoba :as kotoba]))

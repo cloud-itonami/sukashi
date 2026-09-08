@@ -18,7 +18,7 @@
 
   House style: pure render fns; host/file/network I/O only behind #?(:clj …). Re-uses the actor's
   own sukashi-edn (load-edn + edn-str)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [sukashi.methods.sukashi-edn :as edn]
             [sukashi.methods.kotoba :as kotoba]
             [json.compat :as json]

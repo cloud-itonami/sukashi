@@ -16,7 +16,7 @@
   analyzer unit). The autorun tests (methods/test_autorun.py) are likewise deferred. Every
   PURE seed-integrity + analyzer + schema/manifest assertion is ported 1:1."
   (:require [clojure.test :refer [deftest is testing run-tests]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.set]
             [clojure.java.io :as io]
             [json.compat :as json]
@@ -240,7 +240,7 @@
     (is (= (get m "tier") "B"))
     (is (>= (count (get m "gates")) 13))
     ;; G2 must assert observatory-not-network (the Charter 広告排除 invariant)
-    (is (str/includes? (str/lower-case (get-in m ["gates" "G2"])) "observatory"))
+    (is (str/includes? (str/lower (get-in m ["gates" "G2"])) "observatory"))
     (when (.exists lex-dir)
       (let [on-disk (set (map (fn [f] (str/replace (.getName f) #"\.json$" ""))
                               (filter #(str/ends-with? (.getName %) ".json") (.listFiles lex-dir))))
