@@ -34,14 +34,14 @@ Analysis depth:
 - [x] add per-registrar / per-WHOIS-org fraud co-occurrence ranking to the derived datoms — `:adsupply/registrar-cooccurrence` + `:adsupply/whois-cooccurrence` (fraud-flagged creatives sharing one registrar / registrant ORG, public WHOIS org-only G9); report section + derived datoms; test_registrar_and_whois_cooccurrence_ranking
 
 Integration / readiness:
-- [x] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs) — src/sukashi/methods/fraud_bridge.cljc maps :akashi-malak-routed signals → akashi records (candidate-only, non-adjudicating, sourceCids = evidence + method-note); TestAkashiMalakBridge validates against akashi's real lexicon
+- [x] wire `cell:sukashi.fraud-bridge` shape to akashi's `malakEvidenceCandidate` (fixture round-trip, ≥2 source CIDs) — src/sukashi/methods/fraud_bridge.kotoba maps :akashi-malak-routed signals → akashi records (candidate-only, non-adjudicating, sourceCids = evidence + method-note); TestAkashiMalakBridge validates against akashi's real lexicon
 - [x] add a `transact.py` empirical dry-run readiness check (schema attrs + datom count assertion in tests) — TestTransactReadiness: 51 schema attrs + 340 datoms from seed, dry-run offline returns 0 (G7 holds)
 - [ ] add a Murakumo-narration design note (G6) for report summaries (no live call)
 - [ ] viz: render the fraud-cluster as a highlighted sub-graph + a "routed-to" badge per signal
 
 ## R1 — acquisition leg LANDED; live full-web crawl is the gate-flip (Council Lv6+ + operator)
 
-- [x] **CRAWLER built** (`src/sukashi/methods/crawl.cljc`) — frontier walk over real publisher/SSP/exchange
+- [x] **CRAWLER built** (`src/sukashi/methods/crawl.kotoba`) — frontier walk over real publisher/SSP/exchange
       domains (`data/frontier-domains.edn`, 33 real domains) → fetch `/ads.txt`/`/app-ads.txt`/
       `/sellers.json`/RDAP → existing parsers → kotoba rows. Network leg INJECTED (offline tests),
       GET-only/robots/no-evasion (G2/G12), RDAP org-only (G9), resume-safe (`data/live/` gitignored).
