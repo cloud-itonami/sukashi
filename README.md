@@ -30,8 +30,8 @@ candidate **scam-ad network**.
 | supply chain / depends / follow graph + 可視化 | `:adauth.edge` authorization graph + `:addelivery.edge` + `viz/ad-supply-chain.htm` force-graph |
 | 詐欺広告・詐欺 actor の特定 | `:adfraud.signal` + shared-infra `:adfraud/cluster` (candidate scam-ad networks) |
 | 配信元の IP / DNS / WHOIS / 組織状況 | `:addelivery.edge` → `:ip`/`:asn` (ip-network) + `:domain` (passive-dns) + WHOIS-org/registrar |
-| kotoba datomic + IPFS 永続化 | `src/sukashi/methods/transact.cljc` → kotoba `datomic.transact`; media/evidence → DataLad→IPFS |
-| 分析 | `src/sukashi/methods/analyze.cljc` aggregate-first concentration + integrity + fraud-cluster metrics |
+| kotoba datomic + IPFS 永続化 | `src/sukashi/methods/transact.kotoba` → kotoba `datomic.transact`; media/evidence → DataLad→IPFS |
+| 分析 | `src/sukashi/methods/analyze.kotoba` aggregate-first concentration + integrity + fraud-cluster metrics |
 | loop で成熟度改善 | `MATURITY.md` + the self-paced maturity loop (grows coverage + metrics each iteration) |
 
 ## What it is NOT (constitutional)
@@ -76,7 +76,7 @@ Lexicons: `wire/lexicons/`.
 
 ```bash
 cd orgs/etzhayyim/com-etzhayyim-sukashi
-python3 src/sukashi/methods/analyze.cljc        # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
+python3 src/sukashi/methods/analyze.kotoba        # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
 python3 viz/build_viz_data.py     # → open viz/ad-supply-chain.htm in a browser
 ./run_tests.sh                    # 16 tests
 ```

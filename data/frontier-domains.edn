@@ -1,5 +1,5 @@
 ;; sukashi 透かし — crawl frontier (ADR-2606071600 R1). The "where to look" list for the
-;; worldwide ad-supply-chain crawler (src/sukashi/methods/crawl.cljc). Each entry names a REAL domain that
+;; worldwide ad-supply-chain crawler (src/sukashi/methods/crawl.kotoba). Each entry names a REAL domain that
 ;; publishes a PUBLIC IAB file (ads.txt for publishers, sellers.json for exchanges/SSPs) by the
 ;; IAB Tech Lab spec. This is a bounded, representative seed of the frontier — the full worldwide
 ;; frontier is enumerated from public registries (IAB Tech Lab, Common Crawl host list) at the

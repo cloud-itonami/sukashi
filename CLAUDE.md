@@ -76,20 +76,20 @@
 
 ## Cells
 
-- `cell:sukashi.crawl` → `src/sukashi/methods/crawl.cljc` — the worldwide ACQUISITION leg. Walks a frontier of
+- `cell:sukashi.crawl` → `src/sukashi/methods/crawl.kotoba` — the worldwide ACQUISITION leg. Walks a frontier of
   real publisher / SSP / exchange domains (`data/frontier-domains.edn`) and FETCHES their PUBLIC
   IAB files (`/ads.txt`, `/app-ads.txt`, `/sellers.json`, public RDAP) → feeds the `ingest` parsers
   → kotoba rows. **DRY-RUN unless `SUKASHI_OPERATOR_GATE=1`** (G7); the network leg is INJECTED
   (`fetcher=`, tests run offline); GET-only honest-UA robots-respecting, no detection-evasion
   (G2/G12); RDAP keeps registrant ORG only (G9); resume-safe (data/live/ gitignored, fresh-skip).
   I/O-coupled → `.py` (the ingest.py boundary, ADR-2606131800); the *analyzer* is `.cljc`.
-- `cell:sukashi.ingest` → `src/sukashi/methods/ingest.cljc` — real ads.txt/sellers.json/WHOIS parsers → kotoba
+- `cell:sukashi.ingest` → `src/sukashi/methods/ingest.kotoba` — real ads.txt/sellers.json/WHOIS parsers → kotoba
   EAVT bridge (offline default; live G7-gated). WHOIS keeps registrant ORG only (G9).
-- `cell:sukashi.analyze` → `src/sukashi/methods/analyze.cljc` (stdlib). authorization-handshake integrity
+- `cell:sukashi.analyze` → `src/sukashi/methods/analyze.kotoba` (stdlib). authorization-handshake integrity
   (unconfirmed-rate) → account-id collision (domain-spoof surface) → delivery-infra concentration
   (ASN/registrar) → shared-infra scam-ad-network clustering → category load → routing tally.
   Aggregate-first. Idempotent.
-- `cell:sukashi.transact` → `src/sukashi/methods/transact.cljc` — kotoba `datomic.transact` save-path. Dry-run
+- `cell:sukashi.transact` → `src/sukashi/methods/transact.kotoba` — kotoba `datomic.transact` save-path. Dry-run
   default; live write needs operator JWT or CACAO (no platform-held key, ADR-2605231525).
 - `cell:sukashi.viz` → `methods/viz.cljc` (`bb sukashi:viz`; template `viz/template.htm`) — self-contained ad-tech supply-chain + fraud
   force-graph (browser-native via the kotoba-wasm node; inlined payload = offline data contract).
@@ -114,21 +114,21 @@ bb test:sukashi                   # python invariant/heartbeat/crawler + cljc an
 
 # pure reports (methods are python/.cljc, not scripts):
 cd orgs/etzhayyim/com-etzhayyim-sukashi
-python3 src/sukashi/methods/crawl.cljc --merge                 # parse fetched data/live/* → rows
-python3 src/sukashi/methods/ingest.cljc --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
-python3 src/sukashi/methods/analyze.cljc                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
+python3 src/sukashi/methods/crawl.kotoba --merge                 # parse fetched data/live/* → rows
+python3 src/sukashi/methods/ingest.kotoba --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
+python3 src/sukashi/methods/analyze.kotoba                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
 bb sukashi:viz                                   # → viz/ad-supply-chain.htm (open in a browser)
-python3 src/sukashi/methods/autorun.cljc --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
-python3 src/sukashi/methods/transact.cljc                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
+python3 src/sukashi/methods/autorun.kotoba --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
+python3 src/sukashi/methods/transact.kotoba                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 ```
 
 ### Autonomous on the Murakumo fleet (ADR-2606071600)
 
-`src/sukashi/methods/autorun.cljc` is the self-driving observatory heartbeat — the same shape shionome /
+`src/sukashi/methods/autorun.kotoba` is the self-driving observatory heartbeat — the same shape shionome /
 ipaddress / yabai use. Each cycle it runs the whole pipeline ITSELF (observe offline merged graph →
 classify → analyze auth-handshake integrity / delivery-infra concentration / scam-network clusters →
 PERSIST a content-addressed transaction to the append-only **local** kotoba Datom log,
-`src/sukashi/methods/kotoba.cljc`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
+`src/sukashi/methods/kotoba.kotoba`), linking the previous tx's CID into a verifiable commit-DAG. Deterministic /
 resume-safe; NO external I/O. Constitutional posture holds by construction: OBSERVATORY not an ad
 network (G2); every persisted fraud signal stays `:non-adjudicating true` + `:synthesized` (G4) —
 no real entity is implicated. **Fleet placement** is the k3s spec `50-infra/murakumo/fleet.edn` (`sukashi_adsupply_ingest` /
@@ -137,12 +137,12 @@ is registered in `50-infra/cluster/murakumo/cell-runner/cells.edn` as
 **`SukashiObservatoryHeartbeatCell`** (module `sukashi.cell`, entry `fire`, node `issachar`, cron
 `42 * * * *`, healthz 13081) — installed per-node via `cell-runner/install.sh --node issachar`
 (the actual launchd load is the operator step). `cell.py::fire()` runs ONE offline heartbeat
-(`autorun.run_cycle`). The worldwide **crawl** (`src/sukashi/methods/crawl.cljc` + `SUKASHI_OPERATOR_GATE`, G7)
+(`autorun.run_cycle`). The worldwide **crawl** (`src/sukashi/methods/crawl.kotoba` + `SUKASHI_OPERATOR_GATE`, G7)
 and the live-node push (`transact.py`, G11) stay separate operator-gated invocations. Invariants guarded by
 `methods/test_autorun.py` (commit-DAG verify, tamper-detect, determinism, append-only,
 derived-flagging, **G4 fraud-signals-non-adjudicating**, no-external-I/O).
 
-`python3 src/sukashi/methods/analyze.cljc` with no argument runs the **seed** graph (or the merged graph if an
+`python3 src/sukashi/methods/analyze.kotoba` with no argument runs the **seed** graph (or the merged graph if an
 ingest has been run); no live fetch needed.
 
 ## Honesty (R0)
