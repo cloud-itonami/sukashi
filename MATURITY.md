@@ -46,7 +46,7 @@ Integration / readiness:
       `/sellers.json`/RDAP → existing parsers → kotoba rows. Network leg INJECTED (offline tests),
       GET-only/robots/no-evasion (G2/G12), RDAP org-only (G9), resume-safe (`data/live/` gitignored).
       **Proven live**: fetched `theguardian.com/ads.txt` (5,679 B) → 131 supply-chain rows parsed.
-      9 tests green; wired as `bb sukashi:crawl`.
+      9 tests green; wired as `kbb -M:sukashi:crawl`.
 - [ ] **flip the gate** for the FULL run: `SUKASHI_OPERATOR_GATE=1 bb sukashi:crawl` over the full
       frontier (and enumerate the worldwide frontier from IAB Tech Lab / Common Crawl host lists) → `data/live/`
 - [ ] live RDAP/WHOIS + passive-DNS join for real delivery infra (via tadori, registrant ORG only)

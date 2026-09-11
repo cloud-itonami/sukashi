@@ -4,7 +4,7 @@
   Installed on an INTERACTIVE, tailnet-connected machine (the founder's mac, which HAS an Aqua GUI
   session) — NOT on the headless fleet nodes (they have no GUI session, so use the LaunchDAEMON,
   com.etzhayyim.sukashi-heartbeat.daemon.plist, there instead). Each hour at :42 it runs
-  `bb sukashi:fleet-drive`, which SSHes the sukashi-assigned fleet nodes, runs the heartbeat, and
+  `kbb -M:sukashi:fleet-drive`, which SSHes the sukashi-assigned fleet nodes, runs the heartbeat, and
   records each run as a :fleet.run/* datom on the local kotoba ops commit-DAG.
 
   Why a LaunchAgent here works while it failed on the fleet: this machine is logged into the Aqua

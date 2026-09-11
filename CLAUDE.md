@@ -91,7 +91,7 @@
   Aggregate-first. Idempotent.
 - `cell:sukashi.transact` → `src/sukashi/methods/transact.kotoba` — kotoba `datomic.transact` save-path. Dry-run
   default; live write needs operator JWT or CACAO (no platform-held key, ADR-2605231525).
-- `cell:sukashi.viz` → `methods/viz.cljc` (`bb sukashi:viz`; template `viz/template.htm`) — self-contained ad-tech supply-chain + fraud
+- `cell:sukashi.viz` → `methods/viz.cljc` (`kbb -M:sukashi:viz`; template `viz/template.htm`) — self-contained ad-tech supply-chain + fraud
   force-graph (browser-native via the kotoba-wasm node; inlined payload = offline data contract).
 - `cell:sukashi.fraud-bridge` (design) → hands `:routed-to :akashi-malak` signals to akashi's
   `malakEvidenceCandidate` bridge (candidate-evidence only; G11/G13).
@@ -108,16 +108,16 @@ to avoid floats, mirroring kabuto's `criticalityBp`.
 
 ```bash
 # from the repo root:
-bb sukashi:crawl                  # DRY-RUN: print the frontier plan (no network). The acquisition leg.
+kbb -M:sukashi:crawl                  # DRY-RUN: print the frontier plan (no network). The acquisition leg.
 SUKASHI_OPERATOR_GATE=1 bb sukashi:crawl --max 50   # LIVE worldwide crawl (Council-gated, G7) → data/live/
-bb test:sukashi                   # python invariant/heartbeat/crawler + cljc analyzer suites
+kbb -M:test:sukashi                   # python invariant/heartbeat/crawler + cljc analyzer suites
 
 # pure reports (methods are python/.cljc, not scripts):
 cd orgs/etzhayyim/com-etzhayyim-sukashi
 python3 src/sukashi/methods/crawl.kotoba --merge                 # parse fetched data/live/* → rows
 python3 src/sukashi/methods/ingest.kotoba --source adstxt --in data/live/nytimes.com.ads.txt --publisher <id>  # bridge a fetched file
 python3 src/sukashi/methods/analyze.kotoba                       # → out/intel-report.md + out/ad-fraud-clusters.kotoba.edn
-bb sukashi:viz                                   # → viz/ad-supply-chain.htm (open in a browser)
+kbb -M:sukashi:viz                                   # → viz/ad-supply-chain.htm (open in a browser)
 python3 src/sukashi/methods/autorun.kotoba --cycles 3 --fresh    # AUTONOMOUS heartbeat → LOCAL kotoba Datom log
 python3 src/sukashi/methods/transact.kotoba                      # dry-run; --graph <CID> + KOTOBA_TOKEN to write (G7)
 ```
