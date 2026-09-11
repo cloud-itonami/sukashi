@@ -12,7 +12,7 @@ so it runs headlessly without a GUI session. Per node (operator, at the console 
 with sudo):
 
 ```bash
-# prerequisite: sukashi deployed to ~/sukashi-run on the node (see `bb sukashi:fleet-stage`)
+# prerequisite: sukashi deployed to ~/sukashi-run on the node (see `kbb -M:sukashi:fleet-stage`)
 sed -e "s/@@USER@@/issachar/g" -e "s#@@HOME@@#/Users/issachar#g" \
     com.etzhayyim.sukashi-heartbeat.daemon.plist | sudo tee /Library/LaunchDaemons/com.etzhayyim.sukashi-heartbeat.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.etzhayyim.sukashi-heartbeat.plist
@@ -26,7 +26,7 @@ session exists — then the canonical `cell-runner/install.sh` LaunchAgent path 
 
 ## B — local driver + /loop (interim pseudo-daemon; works today, no console access)
 
-`tools/fleet_drive.py` (`bb sukashi:fleet-drive`) runs FROM an interactive machine (the founder's
+`tools/fleet_drive.py` (`kbb -M:sukashi:fleet-drive`) runs FROM an interactive machine (the founder's
 mac, which HAS a GUI session): each tick it SSHes the sukashi-assigned nodes, runs the heartbeat,
 and records each run as a `:fleet.run/*` datom on a LOCAL kotoba ops Datom log (`data/fleet-ops.kotoba.edn`)
 — kotoba is the canonical record of what ran where.
