@@ -6,7 +6,7 @@
 
 ## R0 — design + tested core (current)
 
-- [x] Actor identity (manifest.jsonld, DID, glyph, role) + CLAUDE.md + README
+- [x] Actor identity (manifest.jsonld, DID, glyph, role) + AGENTS.md + README
 - [x] Ontology `ad-supply-chain-ontology.kotoba.edn` (`:adtech`/`:adauth.edge`/`:adcreative`/`:addelivery.edge`/`:adfraud.signal` + derived)
 - [x] Reuse (not re-model) ip-network + passive-dns ontologies for delivery infra
 - [x] Bounded real seed (30 ad-tech entities / 8 auth edges / 4 creatives / 4 delivery / 6 fraud)
@@ -16,7 +16,7 @@
 - [x] `viz/build_viz_data.py` self-contained force-graph (browser-native)
 - [x] 6 `com.etzhayyim.sukashi.*` lexicons
 - [x] 16 invariant + analyzer tests green (G2/G4/G5/G9 pinned in code)
-- [x] Registered: deps.toml + INFRA_ACTORS + root CLAUDE.md Tier-B row
+- [x] Registered: deps.toml + INFRA_ACTORS + root AGENTS.md Tier-B row
 
 ## R0.x — maturity loop (agent-reachable; no gate flip)
 

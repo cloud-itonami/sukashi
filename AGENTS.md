@@ -1,7 +1,7 @@
 # sukashi 透かし — agent reference
 
 > Ad-tech supply-chain + delivery-infra + fraud-network observatory. Tier-B, R0 design-only. ADR-2606071600.
-> Read the repo-root `CLAUDE.md` first; this file only adds actor-local rules.
+> Read the repo-root `AGENTS.md` first; this file only adds actor-local rules.
 
 ## Identity
 

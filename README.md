@@ -51,7 +51,7 @@ candidate **scam-ad network**.
 
 ```
 orgs/etzhayyim/com-etzhayyim-sukashi/
-├── CLAUDE.md            # actor-local constitutional rules (read after repo-root CLAUDE.md)
+├── AGENTS.md            # actor-local constitutional rules (read after repo-root AGENTS.md)
 ├── README.md            # this file
 ├── MATURITY.md          # R0→R1 maturity ladder (the /loop tracks this)
 ├── manifest.jsonld      # actor manifest (cells, lexicons, G1-G13 gates)
